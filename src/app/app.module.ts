@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { PanelComponent } from './panel/panel.component';
 import { PanelContainerComponent } from './panel-container/panel-container.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PanelComponent,
-    PanelContainerComponent
+    PanelContainerComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
