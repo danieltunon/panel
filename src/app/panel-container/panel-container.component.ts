@@ -9,11 +9,13 @@ import
   } from '@angular/core';
 
 import { PanelComponent } from './../panel/panel.component';
+import { PanelSizingService } from './../services/panel-sizing.service';
 
 @Component({
   selector: 'panel-container',
   templateUrl: './panel-container.component.html',
-  styleUrls: ['./panel-container.component.css']
+  styleUrls: ['./panel-container.component.css'],
+  providers: [PanelSizingService]
 })
 export class PanelContainerComponent implements AfterContentInit {
   containerWidth: any;
@@ -22,12 +24,13 @@ export class PanelContainerComponent implements AfterContentInit {
   @HostBinding('style.flexDirection') @Input() direction = 'row';
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
 
-  constructor(el: ElementRef) {
+  constructor(el: ElementRef, public panelSizingService: PanelSizingService) {
     this.el = el;
   }
 
   ngAfterContentInit() {
     console.log(this.el.nativeElement.clientWidth)
+    this.panelSizingService.printMsg();
   }
 
 }
