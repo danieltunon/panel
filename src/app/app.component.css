@@ -1,0 +1,19 @@
+header {
+    flex: 0 0 5vh;
+    background-color: lightpink;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    flex: 0 0 5vh;
+    background-color: lightblue;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
