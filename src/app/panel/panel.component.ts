@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'panel',
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.css']
 })
-export class PanelComponent implements OnInit {
+export class PanelComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

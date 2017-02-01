@@ -16,13 +16,18 @@ import { PanelComponent } from './../panel/panel.component';
   styleUrls: ['./panel-container.component.css']
 })
 export class PanelContainerComponent implements AfterContentInit {
-  @HostBinding('style.flexDirection') @Input() direction = 'row';
+  containerWidth: any;
+  el: ElementRef;
 
+  @HostBinding('style.flexDirection') @Input() direction = 'row';
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
 
-  constructor() { }
+  constructor(el: ElementRef) {
+    this.el = el;
+  }
 
   ngAfterContentInit() {
+    console.log(this.el.nativeElement.clientWidth)
   }
 
 }
