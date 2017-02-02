@@ -5,7 +5,7 @@ import { PanelSizingService } from './../services/panel-sizing.service';
 @Component({
   selector: 'panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.css'],
+  styleUrls: ['./panel.component.less'],
   host: {
     class: 'resizable-panel',
     '[style.flexBasis.px]': 'basis'

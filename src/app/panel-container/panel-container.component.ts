@@ -15,7 +15,7 @@ import { PanelSizingService } from './../services/panel-sizing.service';
 @Component({
   selector: 'panel-container',
   templateUrl: './panel-container.component.html',
-  styleUrls: ['./panel-container.component.css'],
+  styleUrls: ['./panel-container.component.less'],
   providers: [PanelSizingService]
 })
 export class PanelContainerComponent implements AfterContentInit {
