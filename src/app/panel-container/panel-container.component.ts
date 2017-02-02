@@ -16,7 +16,10 @@ import { PanelSizingService } from './../services/panel-sizing.service';
   selector: 'panel-container',
   templateUrl: './panel-container.component.html',
   styleUrls: ['./panel-container.component.less'],
-  providers: [PanelSizingService]
+  providers: [PanelSizingService],
+  host: {
+    '[class]': 'direction'
+  }
 })
 export class PanelContainerComponent implements AfterContentInit {
   get containerDimension(): number {

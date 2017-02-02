@@ -2,3 +2,20 @@
     display: flex;
     border: 2px dashed mediumpurple;
 }
+
+// doesn't work because of ng-content... not same context
+.row .resizable-panel {
+    background-color: lightgoldenrodyellow;
+}
+
+.column .resizable-panel {
+    background-color: palegreen;
+}
+
+[direction="row"] .resizable-panel {
+    background-color: lightgoldenrodyellow;
+}
+
+[direction="column"] .resizable-panel {
+    background-color: palegreen;
+}
