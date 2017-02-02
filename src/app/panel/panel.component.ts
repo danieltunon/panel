@@ -6,10 +6,14 @@ import { PanelSizingService } from './../services/panel-sizing.service';
   selector: 'panel',
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.css'],
-  host: { class: 'resizable-panel' }
+  host: {
+    class: 'resizable-panel',
+    '[style.flexBasis.px]': 'basis'
+  }
 })
 export class PanelComponent {
   @Input() header: string;
+  @Input() basis: number;
   constructor(panelSizingService: PanelSizingService) {
 
    }
