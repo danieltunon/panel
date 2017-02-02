@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { PanelComponent } from './panel/panel.component';
 import { PanelContainerComponent } from './panel-container/panel-container.component';
+import { SplitterComponent } from './splitter/splitter.component';
 import { TestComponent } from './test/test.component';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { TestComponent } from './test/test.component';
     AppComponent,
     PanelComponent,
     PanelContainerComponent,
+    SplitterComponent,
     TestComponent
   ],
   imports: [
