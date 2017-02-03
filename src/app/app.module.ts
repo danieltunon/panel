@@ -8,6 +8,7 @@ import { PanelComponent } from './panel/panel.component';
 import { PanelContainerComponent } from './panel-container/panel-container.component';
 import { SplitterComponent } from './splitter/splitter.component';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
+import { DualPanelComponent } from './dual-panel/dual-panel.component';
 import { TestComponent } from './test/test.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { TestComponent } from './test/test.component';
     PanelContainerComponent,
     SplitterComponent,
     TriPanelComponent,
+    DualPanelComponent,
     TestComponent
   ],
   imports: [
