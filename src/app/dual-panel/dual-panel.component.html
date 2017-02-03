@@ -1,3 +1,11 @@
-<p>
-  dual-panel works!
-</p>
+<div [style.flexBasis.px]="firstPanelSize"><ng-content select="[panel-content-1]"></ng-content></div>
+  <div #splitter (mousedown)="test$.next()" class="panel-splitter"></div>
+<div [style.flexBasis.px]="secondPanelSize"><ng-content select="[panel-content-2]"></ng-content></div>
+
+<!--
+  TODO:
+    * maybe consider making a separate splitter component
+    * maybe add another content selector that checks for a provided handle
+    * maybe take an attribute that will determine if the splitter is thick/thin
+    * class may be unncessary / id may be unncessary
+-->

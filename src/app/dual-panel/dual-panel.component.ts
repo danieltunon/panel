@@ -4,7 +4,12 @@ import {
   OnDestroy,
   HostBinding,
   Input,
+  ElementRef,
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
+import { Subject } from 'rxjs/Subject'
+// import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'dual-panel',
@@ -13,8 +18,15 @@ import {
 })
 export class DualPanelComponent implements OnInit, OnDestroy {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
+  @ViewChild('splitter') splitter: ElementRef;
 
-  constructor() { }
+  private containerSize: number;
+  firstPanelSize: number;
+  secondPanelSize: number;
+
+  private test$: Subject<any> = new Subject();
+
+  constructor(private el: ElementRef) { }
 
   // Possibly use this method to set the flexbasis on the child.
   // May be better to pass the info down to the child by way of props
@@ -51,11 +63,23 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   // not sure if will need to subscribe here to anything
   // maybe if using observables
   ngOnInit() {
+    let size = this.direction === 'row' ? 'width' : 'column';
+    this.containerSize = this.el.nativeElement.getBoundingClientRect()[size];
+    this.test$.subscribe(()=> console.log('mouse thing happened'));
   }
 
   // same as init --> possibly need to unsubscribe to stuff here
   ngOnDestroy() {
 
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() =>{
+      let size = this.direction === 'row' ? 'width' : 'column';
+      let splitterSize = this.splitter.nativeElement.getBoundingClientRect()[size];
+      this.firstPanelSize = ~~(this.containerSize / 2);
+      this.secondPanelSize = ~~(this.containerSize / 2);
+    });
   }
 
 }
