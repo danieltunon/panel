@@ -10,4 +10,6 @@ export class PanelSizingService {
     this.containerDimension = val;
   }
 
+  log() { console.log(`service ${this.containerDimension}`)}
+
 }

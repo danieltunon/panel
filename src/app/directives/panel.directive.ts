@@ -9,7 +9,7 @@ import { PanelSizingService } from './../services/panel-sizing.service';
     '[style.display]': "'flex'",
     '[style.flexGrow]': "1",
     // '[style.flexDirection]': "'column'",
-    '[style.flexBasis.px]': 'basis',
+    '[style.flexBasis.px]': "basis",
   }
 })
 export class PanelDirective {

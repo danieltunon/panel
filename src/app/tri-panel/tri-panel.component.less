@@ -1,20 +1,24 @@
+@deep: ~'>>>';
+
 :host {
     display: flex;
 }
 
-[direction="row"] .resizable-panel {
+// using deep works to apply the styles to projected content
+// not sure about the use of ng-reflect- prefix...
+[ng-reflect-direction="row"] @{deep} .resizable-panel {
     background-color: lightgoldenrodyellow;
 }
 
-[direction="column"] .resizable-panel {
+[ng-reflect-direction="column"] @{deep} .resizable-panel {
     background-color: palegreen;
 }
 
-[panel-content-1],
-[panel-content-2],
-[panel-content-3] {
+:host @{deep} [panel-content-1] {
     display: flex;
 }
 
 // nonne of these work for same reason as before: projecting content
 // can't be styledby host;
+// [panel-content-2]
+// [panel-content-3]

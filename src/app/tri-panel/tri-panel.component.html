@@ -1,11 +1,14 @@
-<div panel-container [direction]="direction">
-  <div panel #p1>
+<div panel-container [direction]="direction" #pc>
+  <div panel #p1 [basis]="pc.containerDimension / 3">
+    <!--This is not working... can't access prop on directive-->
+    <!--Basis --> {{p1.basis}}
+    pc --> {{pc.containerDimension}}-->
     <ng-content select="[panel-content-1]"></ng-content>
   </div>
-  <div panel #p2>
+  <div panel #p2 [basis]="pc.containerDimension / 3">
     <ng-content select="[panel-content-2]"></ng-content>
   </div>
-  <div panel #p3>
+  <div panel #p3 [basis]="pc.containerDimension / 3">
     <ng-content select="[panel-content-3]"></ng-content>
   </div>
 </div>
