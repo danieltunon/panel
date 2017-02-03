@@ -6,7 +6,7 @@ import { PanelSizingService } from './../services/panel-sizing.service';
   selector: '[panel]',
   host: {
     class: 'resizable-panel',
-    '[style.flexBasis.px]': 'basis'
+    '[style.flexBasis.px]': 'basis',
   }
 })
 export class PanelDirective {
