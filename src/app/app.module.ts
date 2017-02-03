@@ -4,20 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { PanelComponent } from './panel/panel.component';
-import { PanelContainerComponent } from './panel-container/panel-container.component';
-import { SplitterComponent } from './splitter/splitter.component';
+import { PanelDirective } from './directives/panel.directive';
+import { PanelContainerDirective } from './directives/panel-container.directive';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
-import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PanelComponent,
-    PanelContainerComponent,
-    SplitterComponent,
+    PanelDirective,
+    PanelContainerDirective,
     TriPanelComponent,
-    TestComponent
   ],
   imports: [
     BrowserModule,

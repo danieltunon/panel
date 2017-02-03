@@ -1,5 +1,5 @@
 import
-  { Component,
+  { Directive,
     Input,
     HostBinding,
     ContentChildren,
@@ -8,20 +8,17 @@ import
     AfterContentInit,
   } from '@angular/core';
 
-import { PanelComponent } from './../panel/panel.component';
-import { SplitterComponent } from './../splitter/splitter.component';
+import { PanelDirective } from './../directives/panel.directive';
 import { PanelSizingService } from './../services/panel-sizing.service';
 
-@Component({
-  selector: 'panel-container',
-  templateUrl: './panel-container.component.html',
-  styleUrls: ['./panel-container.component.less'],
+@Directive({
+  selector: '[panel-container]',
   providers: [PanelSizingService],
   host: {
     '[class]': 'direction'
   }
 })
-export class PanelContainerComponent implements AfterContentInit {
+export class PanelContainerDirective implements AfterContentInit {
   get containerDimension(): number {
     return this.direction === 'row'
       ? this.el.nativeElement.clientWidth
@@ -29,10 +26,7 @@ export class PanelContainerComponent implements AfterContentInit {
   }
   el: ElementRef;
   panelSizes: number[];
-
   @HostBinding('style.flexDirection') @Input() direction = 'row';
-  @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
-  @ContentChildren(SplitterComponent) splitters: QueryList<SplitterComponent>;
 
   constructor(el: ElementRef, public panelSizingService: PanelSizingService) {
     this.el = el;
@@ -44,8 +38,8 @@ export class PanelContainerComponent implements AfterContentInit {
   ngAfterContentInit() {
     // console.log(this.el.nativeElement.clientWidth)
     // this.panelSizingService.printMsg();
-    this.panelSizes;
-    console.log(this.panels.map(p => p.basis))
+    // this.panelSizes;
+    // console.log(this.panels.map(p => p.basis))
   }
 
 }
