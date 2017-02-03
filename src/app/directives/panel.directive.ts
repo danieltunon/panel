@@ -6,6 +6,9 @@ import { PanelSizingService } from './../services/panel-sizing.service';
   selector: '[panel]',
   host: {
     class: 'resizable-panel',
+    '[style.display]': "'flex'",
+    '[style.flexGrow]': "1",
+    // '[style.flexDirection]': "'column'",
     '[style.flexBasis.px]': 'basis',
   }
 })

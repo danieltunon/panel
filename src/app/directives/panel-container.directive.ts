@@ -16,6 +16,7 @@ import { PanelSizingService } from './../services/panel-sizing.service';
   providers: [PanelSizingService],
   host: {
     '[style.display]': "'flex'",
+    '[style.flex]': "'1 0 0'"
   }
 })
 export class PanelContainerDirective implements AfterContentInit {
@@ -32,7 +33,7 @@ export class PanelContainerDirective implements AfterContentInit {
   }
 
   ngOnInit() {
-    console.log(`init size ${this.el.nativeElement.clientWidth}`)
+    console.log(`init size ${this.containerDimension}`)
   }
 
   ngAfterContentInit() {
