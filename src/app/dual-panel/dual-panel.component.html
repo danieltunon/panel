@@ -1,11 +1,11 @@
 <div class="panel" [style.flexBasis.px]="firstPanelSize">
-  <ng-content select="[panel-content-1]"></ng-content>
+  <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
 </div>
 
+     <!--TODO: fix syntax here [ngClass]="{dragging: isDragging}"-->
 <div #splitter
      class="panel-splitter"
-     [ngClass]="{dragging: isDragging}"
-     (mousedown)="test$.next()">
+     (mousedown)="test$.next($event); false;">
 </div>
 
 <div class="panel" [style.flexBasis.px]="secondPanelSize">

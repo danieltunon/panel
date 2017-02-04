@@ -3,6 +3,7 @@ import {
   OnInit,
   OnDestroy,
   HostBinding,
+  HostListener,
   Input,
   ElementRef,
   ViewChild,
@@ -18,13 +19,19 @@ import { Subject } from 'rxjs/Subject'
 })
 export class DualPanelComponent implements OnInit, OnDestroy {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
+  @HostListener('mousemove', ['$event']) onmousemove(e: MouseEvent) {
+    e.stopPropagation();
+    this.test2$.next(e);
+  }
   @ViewChild('splitter') splitter: ElementRef;
+
+  private test$: Subject<any> = new Subject();
+  private test2$: Subject<any> = new Subject();
 
   private containerSize: number;
   firstPanelSize: number;
   secondPanelSize: number;
 
-  private test$: Subject<any> = new Subject();
 
   constructor(private el: ElementRef) { }
 
@@ -65,7 +72,8 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     let size = this.direction === 'row' ? 'width' : 'column';
     this.containerSize = this.el.nativeElement.getBoundingClientRect()[size];
-    this.test$.subscribe(()=> console.log('mouse thing happened'));
+    this.test$.subscribe((e)=> console.log(e));
+    this.test2$.subscribe((e)=> console.log(this.direction, e));
   }
 
   // same as init --> possibly need to unsubscribe to stuff here
