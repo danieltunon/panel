@@ -10,12 +10,12 @@
 
 // this may not need to remain here just giving some breathing room
 // to my dummy content
-:host .panel {
+.panel {
     padding: 9px;
     box-sizing: border-box;
 }
 
-:host .panel-splitter {
+.panel-splitter {
     position: relative;
     cursor: w-resize;
     background-color: gray;
@@ -23,17 +23,20 @@
     &:hover {
         background-color: #007cff; //@boldblue
     }
+    &::after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: -5px;
+        width: 14px;
+        height: 100%;
+    }
 }
 
-:host .panel-splitter::after {
-    content: ' ';
-    position: absolute;
-    top: 0;
-    left: -5px;
-    width: 14px;
-    height: 100%;
+.panel-splitter.dragging {
+    background-color: #007cff;
 }
 
-:host([direction="column"]) {
-    margin: 4px 0;
-}
+// :host([direction="column"]) {
+//     margin: 4px 0;
+// }

@@ -4,6 +4,7 @@
 
 <div #splitter
      class="panel-splitter"
+     [ngClass]="{dragging: isDragging}"
      (mousedown)="test$.next()">
 </div>
 
