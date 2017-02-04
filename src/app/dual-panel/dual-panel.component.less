@@ -8,6 +8,32 @@
     display: flex;
 }
 
+// this may not need to remain here just giving some breathing room
+// to my dummy content
+:host .panel {
+    padding: 9px;
+    box-sizing: border-box;
+}
+
 :host .panel-splitter {
-    flex-basis: 6px;
+    position: relative;
+    cursor: w-resize;
+    background-color: gray;
+    flex-basis: 4px;
+    &:hover {
+        background-color: #007cff; //@boldblue
+    }
+}
+
+:host .panel-splitter::after {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 14px;
+    height: 100%;
+}
+
+:host([direction="column"]) {
+    margin: 4px 0;
 }
