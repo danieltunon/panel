@@ -2,9 +2,9 @@
   <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
 </div>
 
-     <!--TODO: fix syntax here [ngClass]="{dragging: isDragging}"-->
 <div #splitter
      class="panel-splitter"
+     [class.dragging]="isDragging"
      (mousedown)="test$.next($event); false;">
 </div>
 
