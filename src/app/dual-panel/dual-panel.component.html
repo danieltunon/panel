@@ -1,4 +1,4 @@
-<div class="panel" [style.flexBasis.px]="firstPanelSize">
+<div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
   <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
 </div>
 
@@ -8,7 +8,7 @@
      (mousedown)="test$.next($event); false;">
 </div>
 
-<div class="panel" [style.flexBasis.px]="secondPanelSize">
+<div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
   <ng-content select="[panel-content-2]"></ng-content>
 </div>
 

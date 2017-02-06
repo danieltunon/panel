@@ -19,6 +19,7 @@ import { Subject } from 'rxjs/Subject'
 })
 export class DualPanelComponent implements OnInit, OnDestroy {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
+  @Input() name: string;
   @HostListener('mousemove', ['$event']) onmousemove(e: MouseEvent) {
     e.stopPropagation();
     this.test2$.next(e);
@@ -29,8 +30,8 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   private test2$: Subject<any> = new Subject();
 
   private containerSize: number;
-  firstPanelSize: number;
-  secondPanelSize: number;
+  firstPanelSize: number = 250;
+  secondPanelSize: number = 250;
 
 
   constructor(private el: ElementRef) { }
@@ -69,25 +70,64 @@ export class DualPanelComponent implements OnInit, OnDestroy {
 
   // not sure if will need to subscribe here to anything
   // maybe if using observables
-  ngOnInit() {
-    let size = this.direction === 'row' ? 'width' : 'column';
-    this.containerSize = this.el.nativeElement.getBoundingClientRect()[size];
-    this.test$.subscribe((e)=> console.log(e));
-    this.test2$.subscribe((e)=> console.log(this.direction, e));
-  }
+  // ngOnInit() {
+  //   let size = this.direction === 'row' ? 'width' : 'column';
+  //   this.containerSize = this.el.nativeElement.getBoundingClientRect()[size];
+  //   this.test$.subscribe((e)=> console.log(e));
+  //   this.test2$.subscribe((e)=> console.log(this.direction, e));
+  // }
 
-  // same as init --> possibly need to unsubscribe to stuff here
+  // // same as init --> possibly need to unsubscribe to stuff here
   ngOnDestroy() {
 
   }
 
-  ngAfterViewInit() {
-    setTimeout(() =>{
-      let size = this.direction === 'row' ? 'width' : 'column';
-      let splitterSize = this.splitter.nativeElement.getBoundingClientRect()[size];
-      this.firstPanelSize = ~~(this.containerSize / 2);
-      this.secondPanelSize = ~~(this.containerSize / 2);
-    });
+  // ngAfterViewInit() {
+  //   setTimeout(() =>{
+  //     let size = this.direction === 'row' ? 'width' : 'column';
+  //     let splitterSize = this.splitter.nativeElement.getBoundingClientRect()[size];
+  //     this.firstPanelSize = ~~(this.containerSize / 2);
+  //     this.secondPanelSize = ~~(this.containerSize / 2);
+  //   });
+  // }
+  ngOnChanges()           {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'oc', size, conts)
+  }
+  ngOnInit()              {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'oi', size, conts);
+    this.firstPanelSize = ~~(conts / 2);
+    this.secondPanelSize = ~~(conts / 2);
+  }
+  ngDoCheck()             {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'dc', size, conts)
+  }
+  ngAfterContentInit()    {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'aci', size, conts)
+  }
+  ngAfterContentChecked() {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'acc', size, conts);
+    this.firstPanelSize = ~~(conts / 2);
+    this.secondPanelSize = ~~(conts / 2);
+  }
+  ngAfterViewInit()       {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'avi', size, conts)
+  }
+  ngAfterViewChecked()    {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    let conts = this.el.nativeElement.getBoundingClientRect()[size];
+    console.log(this.name, 'avc', size, conts)
   }
 
 }
