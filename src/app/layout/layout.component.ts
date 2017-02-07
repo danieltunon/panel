@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.less']
 })
 export class LayoutComponent implements OnInit {
+  private firstPanelBasis: number;
+  private secondPanelBasis: number;
+  private thirdPanelBasis: number;
 
   constructor() { }
 
