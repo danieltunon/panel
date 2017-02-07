@@ -30,6 +30,8 @@
 npm-debug.log
 testem.log
 /typings
+/src/app/styles
+/src/common.less
 
 # e2e
 /e2e/*.js
