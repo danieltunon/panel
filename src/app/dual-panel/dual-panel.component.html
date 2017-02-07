@@ -1,12 +1,11 @@
-<div class="dual-panel-container" [style.flexDirection]="direction">
+<div class="dual-panel-container" [style.flexDirection]="direction" [class.dragging]="isDragging" (window:resize)="onResize()">
   <div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
-    <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
+    <ng-content select="[panel-content-1]"></ng-content>
   </div>
 
   <div #splitter
       class="panel-splitter {{direction}}"
-      [class.dragging]="isDragging"
-      (mousedown)="startDrag($event); test$.next($event); false;">
+      (mousedown)="startDrag($event); false;">
   </div>
 
   <div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
