@@ -10,8 +10,6 @@
     width: 100%;
 }
 
-// this may not need to remain here just giving some breathing room
-// to my dummy content
 // TODO: look at styles to see if the nesting is messing up the flex
 // problem with the flex-basis that is being passed to the nested child
 // but it only happens when the .panel is set to display flex
@@ -26,12 +24,23 @@
     height: 100%;
     width: 100%;
     position: relative;
+    &.dragging {
+        &.row {
+            cursor: w-resize;
+        }
+        &.column {
+            cursor: n-resize;
+        }
+        .panel-splitter {
+            background-color: #007cff;
+        }
+    }
 }
 
 .panel-splitter {
     position: relative;
     background-color: gray;
-    flex-basis: 4px;
+    flex: 0 0 4px;
     &:hover {
         background-color: #007cff; //@boldblue
     }
@@ -55,15 +64,3 @@
     height: 14px;
     width: 100%;
 }
-// needs a fix--can't use ng-reflect
-// :host([ng-reflect-direction="column"]) .panel-splitter::after {
-// }
-
-
-.panel-splitter.dragging {
-    background-color: #007cff;
-}
-
-// :host([direction="column"]) {
-//     margin: 4px 0;
-// }
