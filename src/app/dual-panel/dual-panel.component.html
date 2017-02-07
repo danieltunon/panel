@@ -1,15 +1,17 @@
-<div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
-  <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
-</div>
+<div class="dual-panel-container" [style.flexDirection]="direction">
+  <div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
+    <ng-content select="[panel-content-1]" [style.flexBasis.px]="firstPanelSize"></ng-content>
+  </div>
 
-<div #splitter
-     class="panel-splitter"
-     [class.dragging]="isDragging"
-     (mousedown)="test$.next($event); false;">
-</div>
+  <div #splitter
+      class="panel-splitter {{direction}}"
+      [class.dragging]="isDragging"
+      (mousedown)="startDrag($event); test$.next($event); false;">
+  </div>
 
-<div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
-  <ng-content select="[panel-content-2]"></ng-content>
+  <div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
+    <ng-content select="[panel-content-2]"></ng-content>
+  </div>
 </div>
 
 <!--
