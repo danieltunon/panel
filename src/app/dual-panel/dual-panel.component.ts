@@ -19,7 +19,6 @@ import { Subject } from 'rxjs/Subject'
 })
 export class DualPanelComponent implements OnInit, OnDestroy {
   @Input() direction: string = 'row';
-  @Input() containerSize: number;
   // @HostBinding('style.flexDirection') @Input() direction: string = 'row';
   @Input() name: string;
   @HostListener('mousemove', ['$event']) onmousemove(e: MouseEvent) {
@@ -37,6 +36,7 @@ export class DualPanelComponent implements OnInit, OnDestroy {
 
   private isResizing: boolean = false;
   startCoord: number;
+  containerSize: number;
   firstPanelSize: number = 250;
   secondPanelSize: number = 250;
 
@@ -108,7 +108,6 @@ export class DualPanelComponent implements OnInit, OnDestroy {
     let conts = this.el.nativeElement.getBoundingClientRect()[size] -
                 this.splitter.nativeElement.getBoundingClientRect()[size];
     console.log(this.name, 'oi', size, conts);
-    console.log('bound size', this.containerSize)
     this.firstPanelSize = ~~(conts / 2);
     this.secondPanelSize = ~~(conts / 2);
   }
