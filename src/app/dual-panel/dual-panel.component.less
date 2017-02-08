@@ -1,3 +1,6 @@
+@import '../styles/mixins';
+@import '../styles/typography';
+@import '../styles/rectangles';
 @deep: ~'/deep/';
 // use funtion form to conditionally apply styles
 // eg. :host([direction="column"]) { }
@@ -5,10 +8,20 @@
 // careful with direction=row because since it is default it isn't
 // always when the component is declared in the markup
 
+
+// now using the /deep/ selector it may be beneficial to refactor
+// the structure of the app so that it doesn't need all the containers
+// and height/width/flex properties since we can select the panel-content
+// elements and style them specifically
 :host {
     display: flex;
+    flex-grow: 1;
     height: 100%;
     width: 100%;
+    &@{deep}[panel-content-1], @{deep}[panel-content-2] {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 // TODO: look at styles to see if the nesting is messing up the flex
@@ -19,6 +32,7 @@
     overflow: hidden;
 }
 
+// this one may be redundant now with the 100% for w and h above
 .panel @{deep} > :not(.panel-header) {
     flex-grow: 1;
 }
