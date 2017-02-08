@@ -1,7 +1,9 @@
 <div class="dual-panel-container" [style.flexDirection]="direction" [class.dragging]="isDragging" (window:resize)="onResize()">
   <div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="firstPanelHeader">
-      <span class="panel-header">{{firstPanelHeader}}</span>
+      <div class="panel-header">
+        <span class="panel-header-label">{{firstPanelHeader}}</span>
+      </div>
     </ng-container>
     <ng-content select="[panel-content-1]"></ng-content>
   </div>
@@ -13,7 +15,9 @@
 
   <div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="secondPanelHeader">
-      <span class="panel-header">{{secondPanelHeader}}</span>
+      <div class="panel-header">
+        <span class="panel-header-label">{{secondPanelHeader}}</span>
+      </div>
     </ng-container>
     <ng-content select="[panel-content-2]"></ng-content>
   </div>
