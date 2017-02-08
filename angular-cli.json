@@ -17,7 +17,7 @@
       "tsconfig": "tsconfig.json",
       "mobile": false,
       "styles": [
-        "styles.less"
+        "styles.css"
       ],
       "scripts": [],
       "environments": {
