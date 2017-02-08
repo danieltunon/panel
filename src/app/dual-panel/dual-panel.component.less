@@ -1,3 +1,4 @@
+@deep: ~'/deep/';
 // use funtion form to conditionally apply styles
 // eg. :host([direction="column"]) { }
 //     :host(:not(.collapsed)) { }
@@ -16,6 +17,10 @@
 .panel {
     flex-direction: column;
     overflow: hidden;
+}
+
+.panel @{deep} > :not(.panel-header) {
+    flex-grow: 1;
 }
 
 .dual-panel-container {
