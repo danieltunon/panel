@@ -18,9 +18,7 @@ import { Subject } from 'rxjs/Subject'
   styleUrls: ['./dual-panel.component.less'],
 })
 export class DualPanelComponent implements OnInit, OnDestroy {
-  // @Input() direction: string = 'row';
   @HostBinding('class') @Input() direction: string = 'row';
-  @Input() name: string;
   @HostListener('mousemove', ['$event']) onmousemove(e: MouseEvent) {
     // stop propagation was preventing the mousemove event from firing when the mouse moved
     // into another panel, but checking if this.isResizing is sufficient since only the panel
@@ -35,6 +33,10 @@ export class DualPanelComponent implements OnInit, OnDestroy {
 
   // private test$: Subject<any> = new Subject();
   // private test2$: Subject<any> = new Subject();
+  // @Input() direction: string = 'row';
+  @Input() name: string;
+  @Input('panel-header-1') firstPanelHeader: string;
+  @Input('panel-header-2') secondPanelHeader: string;
   private isResizing: boolean = false;
   startCoord: number;
   containerSize: number;
@@ -106,6 +108,7 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   //   console.log(this.name, 'oc', size, conts)
   // }
   ngOnInit()              {
+    console.log(this.firstPanelHeader, this.secondPanelHeader)
     this.dimension = this.direction === 'row' ? 'width' : 'height';
     this.containerSize = this.el.nativeElement.getBoundingClientRect()[this.dimension] - 4; // splitter not defined yet;
     console.log(this.name, 'oi', this.dimension, this.containerSize);
