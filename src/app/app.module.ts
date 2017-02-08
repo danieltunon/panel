@@ -8,6 +8,7 @@ import { PanelContainerComponent } from './panel-container/panel-container.compo
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
 import { TestComponent } from './test/test.component';
+import { ExperimentComponent } from './experiment/experiment.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TestComponent } from './test/test.component';
     PanelContainerComponent,
     TriPanelComponent,
     DualPanelComponent,
-    TestComponent
+    TestComponent,
+    ExperimentComponent,
   ],
   imports: [
     BrowserModule,
