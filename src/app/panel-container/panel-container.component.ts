@@ -8,15 +8,11 @@ import
     AfterContentInit,
   } from '@angular/core';
 
-import { PanelComponent } from './../panel/panel.component';
-import { SplitterComponent } from './../splitter/splitter.component';
-import { PanelSizingService } from './../services/panel-sizing.service';
-
 @Component({
   selector: 'panel-container',
   templateUrl: './panel-container.component.html',
   styleUrls: ['./panel-container.component.less'],
-  providers: [PanelSizingService],
+  providers: [],
   host: {
     '[class]': 'direction'
   }
@@ -31,10 +27,10 @@ export class PanelContainerComponent implements AfterContentInit {
   panelSizes: number[];
 
   @HostBinding('style.flexDirection') @Input() direction = 'row';
-  @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
-  @ContentChildren(SplitterComponent) splitters: QueryList<SplitterComponent>;
+  // @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
+  // @ContentChildren(SplitterComponent) splitters: QueryList<SplitterComponent>;
 
-  constructor(el: ElementRef, public panelSizingService: PanelSizingService) {
+  constructor(el: ElementRef) {
     this.el = el;
   }
   ngOnInit() {
@@ -45,7 +41,7 @@ export class PanelContainerComponent implements AfterContentInit {
     // console.log(this.el.nativeElement.clientWidth)
     // this.panelSizingService.printMsg();
     this.panelSizes;
-    console.log(this.panels.map(p => p.basis))
+    // console.log(this.panels.map(p => p.basis))
   }
 
 }
