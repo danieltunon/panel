@@ -36,8 +36,9 @@
 }
 
 // this one may be redundant now with the 100% for w and h above
-.panel @{deep} > :not(.panel-header) {
+.panel > @{deep}:not(.panel-header) {
     flex-grow: 1;
+    overflow-y: auto;
 }
 
 .dual-panel-container {
