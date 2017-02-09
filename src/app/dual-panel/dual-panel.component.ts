@@ -37,8 +37,8 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   @Input() name: string;
   @Input('panel-1-collapsable') firstCollapsable: boolean = true;
   @Input('panel-2-collapsable') secondCollapsable: boolean = true;
-  @Input('panel-header-1') firstPanelHeader: string;
-  @Input('panel-header-2') secondPanelHeader: string;
+  @Input('panel-1-header') firstPanelHeader: string;
+  @Input('panel-2-header') secondPanelHeader: string;
   dimension: string;
   containerSize: number;
   private isResizing: boolean = false;
@@ -179,15 +179,19 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   }
 
   toggleFirst() {
-    this.firstPanelSize = this.firstCollapsed ? this.containerSize / 2 : 30;
-    this.secondPanelSize = this.containerSize - this.firstPanelSize;
-    this.firstCollapsed = !this.firstCollapsed;
+    if (this.firstCollapsable) {
+      this.firstPanelSize = this.firstCollapsed ? this.containerSize / 2 : 30;
+      this.secondPanelSize = this.containerSize - this.firstPanelSize;
+      this.firstCollapsed = !this.firstCollapsed;
+    }
   }
 
   toggleSecond() {
-    this.secondPanelSize = this.secondCollapsed ? this.containerSize / 2 : 30;
-    this.firstPanelSize = this.containerSize - this.secondPanelSize;
-    this.secondCollapsed = !this.secondCollapsed;
+    if (this.secondCollapsable) {
+      this.secondPanelSize = this.secondCollapsed ? this.containerSize / 2 : 30;
+      this.firstPanelSize = this.containerSize - this.secondPanelSize;
+      this.secondCollapsed = !this.secondCollapsed;
+    }
   }
 
 }
