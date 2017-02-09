@@ -2,6 +2,7 @@ import
   { Component,
     Input,
     HostBinding,
+    HostListener,
     ContentChildren,
     QueryList,
     ElementRef,
@@ -14,10 +15,22 @@ import
   styleUrls: ['./panel-container.component.less'],
   providers: [],
   host: {
-    // '[class]': 'direction'
+    '[class]': 'direction',
+    // '[class.dragging]': 'isDragging',
+    // '[style.flexDirection]': 'direction',
   }
 })
 export class PanelContainerComponent {
+  @HostBinding('style.flexDirection') @Input() direction: string = 'row';
+  @HostBinding('class.resizing') isResizing: boolean = false;
+  // private startCoord: number;
+
+  // @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) {
+  //   e.preventDefault();
+  //   if (this.isResizing) {
+  //     // handle resize
+  //   }
+  // }
 
   constructor() { }
 
