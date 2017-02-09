@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { PanelContainerComponent } from './panel-container/panel-container.component';
+import { PanelComponent } from './panel/panel.component';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
 import { TestComponent } from './test/test.component';
@@ -13,6 +14,7 @@ import { TestComponent } from './test/test.component';
   declarations: [
     AppComponent,
     PanelContainerComponent,
+    PanelComponent,
     TriPanelComponent,
     DualPanelComponent,
     TestComponent,
