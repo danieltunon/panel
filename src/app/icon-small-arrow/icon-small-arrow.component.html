@@ -1,0 +1,23 @@
+﻿<svg attr.height="{{ height }}" 
+     attr.width="{{ width }}"
+     attr.class="icon-small-arrow {{ lessClass }}{{ disabled ? ' disabled' : '' }}"
+     attr.viewBox="0 0 {{ width }} {{ height }}" 
+     version="1.1" 
+     xmlns="http://www.w3.org/2000/svg" 
+     xmlns:xlink="http://www.w3.org/1999/xlink" 
+     x="0px" y="0px"
+     xml:space="preserve">
+    <g>
+        <rect class="st0" attr.width="{{ width }}" attr.height="{{ height }}" />
+    </g>
+    <g [ngSwitch]="direction">
+        <polygon *ngSwitchCase="'n'" class="st1" points="11.5,9.8 8,6.2 4.5,9.8" />
+        <polygon *ngSwitchCase="'ne'" class="st1" points="10.5,10.5 10.5,5.5 5.5,5.5" />
+        <polygon *ngSwitchCase="'e'" class="st1" points="6.2,4.5 9.8,8 6.2,11.5" />
+        <polygon *ngSwitchCase="'se'" class="st1" points="10.5,5.5 10.5,10.5 5.5,10.5" />
+        <polygon *ngSwitchCase="'s'" class="st1" points="11.5,6.2 8,9.8 4.5,6.2" />
+        <polygon *ngSwitchCase="'sw'" class="st1" points="5.5,5.5 5.5,10.5 10.5,10.5" />
+        <polygon *ngSwitchCase="'w'" class="st1" points="9.8,4.5 6.2,8 9.8,11.5" />
+        <polygon *ngSwitchCase="'nw'" class="st1" points="5.5,10.5 5.5,5.5 10.5,5.5" />
+    </g>
+</svg>

@@ -8,6 +8,7 @@ import { PanelContainerComponent } from './panel-container/panel-container.compo
 import { PanelComponent } from './panel/panel.component';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
+import { IconSmallArrowComponent } from './icon-small-arrow/icon-small-arrow.component'
 import { TestComponent } from './test/test.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { TestComponent } from './test/test.component';
     PanelComponent,
     TriPanelComponent,
     DualPanelComponent,
+    IconSmallArrowComponent,
     TestComponent,
   ],
   imports: [
