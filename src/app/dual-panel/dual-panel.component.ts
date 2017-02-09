@@ -180,7 +180,7 @@ export class DualPanelComponent implements OnInit, OnDestroy {
 
   toggleFirst() {
     if (this.firstCollapsable) {
-      this.firstPanelSize = this.firstCollapsed ? this.containerSize / 2 : 30;
+      this.firstPanelSize = this.firstCollapsed ? this.containerSize / 2 : 36;
       this.secondPanelSize = this.containerSize - this.firstPanelSize;
       this.firstCollapsed = !this.firstCollapsed;
     }
@@ -188,7 +188,7 @@ export class DualPanelComponent implements OnInit, OnDestroy {
 
   toggleSecond() {
     if (this.secondCollapsable) {
-      this.secondPanelSize = this.secondCollapsed ? this.containerSize / 2 : 30;
+      this.secondPanelSize = this.secondCollapsed ? this.containerSize / 2 : 36;
       this.firstPanelSize = this.containerSize - this.secondPanelSize;
       this.secondCollapsed = !this.secondCollapsed;
     }
