@@ -104,6 +104,9 @@
     .panel-header-label {
         .text-panel-secondary-header;
         .no-select;
+        display: inline-block;
+        transform: rotate(0deg);
+        transition: transform 300ms;
     }
     // overflow: hidden;
     // white-space: nowrap;
@@ -111,7 +114,17 @@
     // z-index: 10;
 }
 
-.panel.collapsed .panel-header {
-    height: 100%;
-    width: 100%;
+.panel.collapsed {
+    .panel-header {
+        height: 100%;
+        width: 100%;
+    }
+    .panel-header-label {
+        display: inline-block;
+        float: left;
+        transform-origin: bottom;
+        transform: rotate(-90deg);
+        transition: transform 300ms;
+    }
 }
+
