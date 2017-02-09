@@ -1,8 +1,9 @@
-@import '../styles/base';
-@import '../styles/mixins';
-@import '../styles/typography';
-@import '../styles/rectangles';
-@deep: ~'/deep/';
+@import "../styles/base";
+@import "../styles/mixins";
+@import "../styles/typography";
+@import "../styles/rectangles";
+@import "../styles/icons";
+@deep: ~"/deep/";
 // use funtion form to conditionally apply styles
 // eg. :host([direction="column"]) { }
 //     :host(:not(.collapsed)) { }
@@ -120,11 +121,18 @@
         width: 100%;
     }
     .panel-header-label {
-        display: inline-block;
+        display: block;
         float: left;
         transform-origin: bottom;
         transform: rotate(-90deg);
         transition: transform 300ms;
     }
+}
+
+.panel-expand-icon {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform: translateY(50%);
 }
 

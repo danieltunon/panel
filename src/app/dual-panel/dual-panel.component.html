@@ -3,6 +3,9 @@
     <ng-container *ngIf="firstPanelHeader">
       <div class="panel-header" [class.collapsable]="firstCollapsable" (click)="toggleFirst()">
         <span class="panel-header-label">{{firstPanelHeader}}</span>
+        <div *ngIf="firstCollapsed" class="panel-expand-icon">
+          <icon-small-arrow [direction]="'e'"></icon-small-arrow>
+        </div>
       </div>
     </ng-container>
     <ng-content *ngIf="!firstCollapsed" select="[panel-content-1]"></ng-content>
@@ -17,6 +20,7 @@
     <ng-container *ngIf="secondPanelHeader">
       <div class="panel-header" [class.collapsable]="secondCollapsable" (click)="toggleSecond()">
         <span class="panel-header-label">{{secondPanelHeader}}</span>
+        <div *ngIf="secondCollapsed" class="panel-expand-icon"><icon-small-arrow [direction]="'w'"></icon-small-arrow></div>
       </div>
     </ng-container>
     <ng-content *ngIf="!secondCollapsed" select="[panel-content-2]"></ng-content>
