@@ -1,11 +1,11 @@
 <div class="dual-panel-container" [style.flexDirection]="direction" [class.dragging]="isDragging" (window:resize)="onResize()">
-  <div class="panel" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
+  <div class="panel" [class.collapsed]="firstCollapsed" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="firstPanelHeader">
-      <div class="panel-header">
+      <div class="panel-header" (click)="toggleFirst()">
         <span class="panel-header-label">{{firstPanelHeader}}</span>
       </div>
     </ng-container>
-    <ng-content select="[panel-content-1]"></ng-content>
+    <ng-content *ngIf="!firstCollapsed" select="[panel-content-1]"></ng-content>
   </div>
 
   <div #splitter
@@ -13,13 +13,13 @@
       (mousedown)="startDrag($event); false;">
   </div>
 
-  <div class="panel" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
+  <div class="panel" [class.collapsed]="secondCollapsed" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="secondPanelHeader">
-      <div class="panel-header">
+      <div class="panel-header" (click)="toggleSecond()">
         <span class="panel-header-label">{{secondPanelHeader}}</span>
       </div>
     </ng-container>
-    <ng-content select="[panel-content-2]"></ng-content>
+    <ng-content *ngIf="!secondCollapsed" select="[panel-content-2]"></ng-content>
   </div>
 </div>
 

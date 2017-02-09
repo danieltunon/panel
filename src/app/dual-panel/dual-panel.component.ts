@@ -35,14 +35,18 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   // private test2$: Subject<any> = new Subject();
   // @Input() direction: string = 'row';
   @Input() name: string;
+  @Input('panel-1-collapsable') firstCollapsable: boolean = true;
+  @Input('panel-2-collapsable') secondCollapsable: boolean = true;
   @Input('panel-header-1') firstPanelHeader: string;
   @Input('panel-header-2') secondPanelHeader: string;
+  dimension: string;
+  containerSize: number;
   private isResizing: boolean = false;
   startCoord: number;
-  containerSize: number;
   firstPanelSize: number = 250;
   secondPanelSize: number = 250;
-  dimension: string;
+  firstCollapsed: boolean = false;
+  secondCollapsed: boolean = false;
 
 
   constructor(private el: ElementRef) { }
@@ -108,19 +112,18 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   //   console.log(this.name, 'oc', size, conts)
   // }
   ngOnInit()              {
-    console.log(this.firstPanelHeader, this.secondPanelHeader)
     this.dimension = this.direction === 'row' ? 'width' : 'height';
     this.containerSize = this.el.nativeElement.getBoundingClientRect()[this.dimension] - 4; // splitter not defined yet;
-    console.log(this.name, 'oi', this.dimension, this.containerSize);
+    // console.log(this.name, 'oi', this.dimension, this.containerSize);
     this.firstPanelSize = this.containerSize / 2;
     this.secondPanelSize = this.containerSize / 2;
   }
-  // ngDoCheck()             {
-  //   let size = this.direction === 'row' ? 'width' : 'height';
-  //   if (this.containerSize !== this.el.nativeElement.getBoundingClientRect()[size] - 4) {
-  //     window.setTimeout(this.onResize.bind(this));
-  //   }
-  // }
+  ngDoCheck()             {
+    let size = this.direction === 'row' ? 'width' : 'height';
+    if (this.containerSize !== this.el.nativeElement.getBoundingClientRect()[size] - 4) {
+      window.setTimeout(this.onResize.bind(this));
+    }
+  }
   // ngAfterContentInit()    {
   //   let size = this.direction === 'row' ? 'width' : 'height';
   //   let conts = this.el.nativeElement.getBoundingClientRect()[size];
@@ -140,7 +143,7 @@ export class DualPanelComponent implements OnInit, OnDestroy {
     let other = this.direction !== 'row' ? 'width' : 'height';
     let oconts = this.el.nativeElement.getBoundingClientRect()[other];
     this.containerSize = conts;
-    console.log(this.name, 'avi', size, conts, other, oconts)
+    // console.log(this.name, 'avi', size, conts, other, oconts)
     window.setTimeout(() => {
       this.firstPanelSize = (conts / 2);
       this.secondPanelSize = (conts / 2);
@@ -151,8 +154,9 @@ export class DualPanelComponent implements OnInit, OnDestroy {
     let size = this.direction === 'row' ? 'width' : 'height';
     let conts = this.el.nativeElement.getBoundingClientRect()[size] -
                 this.splitter.nativeElement.getBoundingClientRect()[size];
-      this.firstPanelSize = (conts / 2);
-      this.secondPanelSize = (conts / 2);
+    this.containerSize = conts;
+    this.firstPanelSize = (conts / 2);
+    this.secondPanelSize = (conts / 2);
   }
   // ngAfterViewChecked()    {
   //   let size = this.direction === 'row' ? 'width' : 'height';
@@ -172,6 +176,18 @@ export class DualPanelComponent implements OnInit, OnDestroy {
   startDrag(e) {
     this.isResizing = true;
     this.startCoord = e[`client${this.direction === 'row' ? 'X' : 'Y'}`];
+  }
+
+  toggleFirst() {
+    this.firstPanelSize = this.firstCollapsed ? this.containerSize / 2 : 30;
+    this.secondPanelSize = this.containerSize - this.firstPanelSize;
+    this.firstCollapsed = !this.firstCollapsed;
+  }
+
+  toggleSecond() {
+    this.secondPanelSize = this.secondCollapsed ? this.containerSize / 2 : 30;
+    this.firstPanelSize = this.containerSize - this.secondPanelSize;
+    this.secondCollapsed = !this.secondCollapsed;
   }
 
 }
