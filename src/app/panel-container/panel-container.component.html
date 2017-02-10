@@ -1,5 +1,5 @@
 <ng-content select="[first-panel]"></ng-content>
 <div class="panel-splitter {{direction}}" #firstSplitter></div>
 <ng-content select="[second-panel]"></ng-content>
-<div class="panel-splitter {{direction}}" #secondSplitter></div>
+<div *ngIf="panels.length === 3" class="panel-splitter {{direction}}" #secondSplitter></div>
 <ng-content select="[third-panel]"></ng-content>

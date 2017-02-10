@@ -9,6 +9,8 @@ import
     AfterContentInit,
   } from '@angular/core';
 
+  import { PanelComponent } from '../panel/panel.component';
+
 @Component({
   selector: 'panel-container',
   templateUrl: './panel-container.component.html',
@@ -23,6 +25,7 @@ import
 export class PanelContainerComponent {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
   @HostBinding('class.resizing') isResizing: boolean = false;
+  @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
   // private startCoord: number;
 
   // @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) {
@@ -47,14 +50,12 @@ export class PanelContainerComponent {
   // // @ContentChildren(SplitterComponent) splitters: QueryList<SplitterComponent>;
 
   // ngOnInit() {
-  //   console.log(`init size ${this.el.nativeElement.clientWidth}`)
-  //   console.log(`size is type ${typeof this.el.nativeElement.clientWidth}`)
+
   // }
-  // ngAfterContentInit() {
-  //   // console.log(this.el.nativeElement.clientWidth)
-  //   // this.panelSizingService.printMsg();
-  //   this.panelSizes;
-  //   // console.log(this.panels.map(p => p.basis))
-  // }
+  ngAfterContentInit() {
+    // console.log(this.el.nativeElement.clientWidth)
+    // this.panelSizingService.printMsg();
+    // console.log(this.panels.map(p => p.basis))
+  }
 
 }
