@@ -1,7 +1,7 @@
 <div class="dual-panel-container" [style.flexDirection]="direction" [class.dragging]="isDragging" (window:resize)="onResize()">
   <div class="panel" [class.collapsed]="firstCollapsed" [style.flexBasis.px]="firstPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="firstPanelHeader">
-      <div class="panel-header" [class.collapsable]="firstCollapsable" (click)="toggleFirst()">
+      <div class="panel-header {{direction}}" [class.collapsable]="firstCollapsable" (click)="toggleFirst()">
         <span class="panel-header-label">{{firstPanelHeader}}</span>
         <div *ngIf="firstCollapsed" class="panel-expand-icon">
           <icon-small-arrow [direction]="'e'"></icon-small-arrow>
@@ -18,7 +18,7 @@
 
   <div class="panel" [class.collapsed]="secondCollapsed" [style.flexBasis.px]="secondPanelSize" [style.display]="'flex'">
     <ng-container *ngIf="secondPanelHeader">
-      <div class="panel-header" [class.collapsable]="secondCollapsable" (click)="toggleSecond()">
+      <div class="panel-header {{direction}}" [class.collapsable]="secondCollapsable" (click)="toggleSecond()">
         <span class="panel-header-label">{{secondPanelHeader}}</span>
         <div *ngIf="secondCollapsed" class="panel-expand-icon"><icon-small-arrow [direction]="'w'"></icon-small-arrow></div>
       </div>
