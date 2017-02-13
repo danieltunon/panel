@@ -25,19 +25,34 @@ import
 })
 export class PanelContainerComponent {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
-  @HostBinding('class.resizing') isResizing: boolean = false;
+  @HostBinding('class.resizing') private isResizing: boolean = false;
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
   @ViewChildren('splitter') splitters: QueryList<any>;
-  // private startCoord: number;
 
-  // @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) {
-  //   e.preventDefault();
-  //   if (this.isResizing) {
-  //     // handle resize
-  //   }
-  // }
+  @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) {
+    e.preventDefault();
+    if (this.isResizing) {
+      this.handleResize(e);
+    }
+  }
+  @HostListener('mouseup', ['$event']) endDrag(e: MouseEvent) {
+    this.isResizing = false;
+    this.handleResize(e);
+  }
+
+  private startPosition: number;
 
   constructor() { }
+
+  startDrag(e) {
+    this.isResizing = true;
+    this.startPosition = e[`client${this.direction === 'row' ? 'X' : 'Y'}`];
+  }
+
+  handleResize(e) {
+    let position: number = e[`client${this.direction === 'row' ? 'X' : 'Y'}`];
+    console.log(e);
+  }
 
   // get containerDimension(): number {
   //   return this.direction === 'row'
