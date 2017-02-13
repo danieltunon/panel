@@ -1,7 +1,7 @@
 <ng-content select="[first-panel]"></ng-content>
-<div class="panel-splitter {{direction}}" #firstSplitter></div>
+<div #splitter class="panel-splitter {{direction}}" #firstSplitter></div>
 <ng-content select="[second-panel]"></ng-content>
-<div *ngIf="panels.length === 3" class="panel-splitter {{direction}}" #secondSplitter></div>
+<div #splitter *ngIf="panels.length === 3" class="panel-splitter {{direction}}" #secondSplitter></div>
 <ng-content select="[third-panel]"></ng-content>
 <!--<div *ngFor="let p of panels; let i"><ng-content select="[panel-child={{i}}]"></ng-content>-->
 <!--<div>test<ng-content select="[panel-child=1]"></ng-content></div>-->

@@ -4,6 +4,7 @@ import
     HostBinding,
     HostListener,
     ContentChildren,
+    ViewChildren,
     QueryList,
     ElementRef,
     AfterContentInit,
@@ -26,6 +27,7 @@ export class PanelContainerComponent {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
   @HostBinding('class.resizing') isResizing: boolean = false;
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
+  @ViewChildren('splitter') splitters: QueryList<any>;
   // private startCoord: number;
 
   // @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) {
