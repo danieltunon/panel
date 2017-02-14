@@ -14,11 +14,6 @@ import {
 })
 export class PanelComponent implements OnInit {
   @HostBinding('style.flexBasis.px') public flexBasis: number;
-  private requestRegisterContainer: EventEmitter<any> = new EventEmitter();
-  @HostListener('requestRegisterContainer', ['$event']) private registerChildContainer(e) {
-    console.log(`a panel heard this from ${e.name}`)
-    this.requestRegisterContainer.emit(e);
-  }
 
   constructor(private el: ElementRef) {
     // el.nativeElement.dispatchEvent()
