@@ -1,0 +1,13 @@
+@deep: ~"/deep/";
+
+:host {
+    flex-direction: column;
+    overflow: hidden;
+    border: none;
+    // transition: flex-basis 300ms ease-out;
+}
+
+:host > @{deep}:not(.panel-header) {
+    flex-grow: 1;
+    overflow-y: auto;
+}
