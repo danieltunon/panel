@@ -4,14 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { PanelContainerComponent } from './panel-container/panel-container.component';
-import { PanelComponent } from './panel/panel.component';
-import { TriPanelComponent } from './tri-panel/tri-panel.component';
-import { DualPanelComponent } from './dual-panel/dual-panel.component';
-import { HorizontalPanelContainerComponent } from './horizontal-panel-container/horizontal-panel-container.component';
-import { VerticalPanelContainerComponent } from './vertical-panel-container/vertical-panel-container.component';
-import { SplitterComponent } from './splitter/splitter.component';
-import { IconSmallArrowComponent } from './icon-small-arrow/icon-small-arrow.component'
+import { PanelContainerComponent } from './old/panel-container/panel-container.component';
+import { PanelComponent } from './new/panel/panel.component';
+import { TriPanelComponent } from './old/tri-panel/tri-panel.component';
+import { DualPanelComponent } from './old/dual-panel/dual-panel.component';
+import { HorizontalPanelContainerComponent } from './new/horizontal-panel-container/horizontal-panel-container.component';
+import { VerticalPanelContainerComponent } from './new/vertical-panel-container/vertical-panel-container.component';
+import { SplitterComponent } from './new/splitter/splitter.component';
+import { IconSmallArrowComponent } from './old/icon-small-arrow/icon-small-arrow.component'
 import { TestComponent } from './test/test.component';
 
 @NgModule({

@@ -10,7 +10,7 @@ import
     AfterContentInit,
   } from '@angular/core';
 
-  import { PanelComponent } from '../panel/panel.component';
+  import { PanelComponent } from '../../new/panel/panel.component';
 
 @Component({
   selector: 'panel-container',
