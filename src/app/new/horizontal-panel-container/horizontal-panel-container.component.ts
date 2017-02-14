@@ -11,12 +11,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { PanelComponent } from '../panel/panel.component';
-import { VerticalPanelContainerComponent } from '../vertical-panel-container/vertical-panel-container.component';
-
-export abstract class PanelContainerComponent {
-  panels: QueryList<PanelComponent>;
-  name: string;
-}
+import { PanelContainerComponent } from '../panel-container/panel-container';
 
 @Component({
   selector: 'horizontal-panel-container',

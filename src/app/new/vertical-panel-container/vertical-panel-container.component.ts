@@ -11,8 +11,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { PanelComponent } from '../panel/panel.component';
-import { HorizontalPanelContainerComponent } from '../horizontal-panel-container/horizontal-panel-container.component';
-import { PanelContainerComponent } from '../horizontal-panel-container/horizontal-panel-container.component'
+import { PanelContainerComponent } from '../panel-container/panel-container';
 
 @Component({
   selector: 'vertical-panel-container',
