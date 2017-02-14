@@ -25,7 +25,7 @@
   </div>
 </dual-panel>-->
 
-<panel-container>
+<panel-container [name]="1">
   <panel panel-child="1" class="panel-child-1" first-panel #p1>
     <div panel-content-1>
       <p>Cras aliquet metus lacus, eu mattis dui tincidunt vitae. Pellentesque nec dolor vel elit egestas mollis. Nulla vel ipsum eleifend, maximus mi a, tempor metus. Praesent non urna at ante ullamcorper mollis eu non erat. Curabitur egestas luctus sodales. Aenean semper, nisl quis scelerisque cursus, nulla felis tempus leo, at hendrerit odio dui nec metus. Donec venenatis ut diam eget dapibus. Duis tincidunt eros eros, ac lacinia odio viverra at.</p>
@@ -34,14 +34,14 @@
     </div>
   </panel>
   <panel panel-child="2" second-panel #p2>
-    <panel-container [direction]="'column'">
+    <panel-container [direction]="'column'" [name]="2">
       <panel first-panel>
         <p>Cras aliquet metus lacus, eu mattis dui tincidunt vitae. Pellentesque nec dolor vel elit egestas mollis. Nulla vel ipsum eleifend, maximus mi a, tempor metus. Praesent non urna at ante ullamcorper mollis eu non erat. Curabitur egestas luctus sodales. Aenean semper, nisl quis scelerisque cursus, nulla felis tempus leo, at hendrerit odio dui nec metus. Donec venenatis ut diam eget dapibus. Duis tincidunt eros eros, ac lacinia odio viverra at.</p>
         <p>Aenean vitae dui ultricies, ultrices urna id, molestie eros. Fusce a lectus tincidunt, vehicula eros sed, lobortis odio. In hac habitasse platea dictumst. Nunc nisi leo, vestibulum vel iaculis sed, accumsan eu nisl. Sed interdum arcu nec urna blandit, ac pellentesque neque lobortis. In in placerat velit. Maecenas suscipit arcu sit amet est vestibulum, a euismod quam pharetra. Pellentesque imperdiet dolor sit amet nulla vehicula suscipit. Suspendisse venenatis quis nibh vitae vulputate.</p>
         <p>Cras ullamcorper nunc eget ultricies ultrices. Etiam libero diam, tempor vel libero in, semper sodales ex. Ut maximus massa sed efficitur placerat. Sed molestie lacus magna, quis vulputate turpis mattis vitae. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam rutrum sapien eu tincidunt lobortis. Morbi commodo dui dui, quis faucibus mi condimentum ac. Suspendisse blandit velit ac lorem sodales eleifend. Proin pulvinar porttitor finibus. Pellentesque at ligula augue. Pellentesque id orci vitae neque sagittis commodo. Sed ultrices condimentum efficitur. Donec eu interdum nunc. Vestibulum erat magna, interdum eu ipsum vitae, convallis pellentesque diam. Donec id ipsum libero. Praesent porttitor posuere finibus.</p>
       </panel>
       <panel second-panel>
-          <panel-container>
+          <panel-container [name]="3">
             <panel first-panel>
               <p>Morbi consequat risus vitae mauris sodales, at tincidunt quam hendrerit. Pellentesque fermentum ac lorem et porta. Vivamus pretium posuere elit, at laoreet est fermentum in. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce et arcu ipsum. Maecenas at sem tempor, sodales ex a, maximus sapien. Nam mauris nunc, sodales eget maximus a, tincidunt non velit.</p>
             </panel>
