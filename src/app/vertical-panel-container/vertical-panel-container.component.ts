@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'vertical-panel-container',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vertical-panel-container.component.less']
 })
 export class VerticalPanelContainerComponent implements OnInit {
+  @Input() name: string;
 
   constructor() { }
 
