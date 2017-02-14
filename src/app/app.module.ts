@@ -8,6 +8,9 @@ import { PanelContainerComponent } from './panel-container/panel-container.compo
 import { PanelComponent } from './panel/panel.component';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
+import { HorizontalPanelContainerComponent } from './horizontal-panel-container/horizontal-panel-container.component';
+import { VerticalPanelContainerComponent } from './vertical-panel-container/vertical-panel-container.component';
+import { SplitterComponent } from './splitter/splitter.component';
 import { IconSmallArrowComponent } from './icon-small-arrow/icon-small-arrow.component'
 import { TestComponent } from './test/test.component';
 
@@ -18,6 +21,9 @@ import { TestComponent } from './test/test.component';
     PanelComponent,
     TriPanelComponent,
     DualPanelComponent,
+    HorizontalPanelContainerComponent,
+    VerticalPanelContainerComponent,
+    SplitterComponent,
     IconSmallArrowComponent,
     TestComponent,
   ],
