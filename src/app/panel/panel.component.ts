@@ -1,4 +1,11 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import {
+  Component,
+  HostBinding,
+  OnInit,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 
 @Component({
   selector: 'panel',
@@ -7,8 +14,15 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 })
 export class PanelComponent implements OnInit {
   @HostBinding('style.flexBasis.px') public flexBasis: number;
+  private requestRegisterContainer: EventEmitter<any> = new EventEmitter();
+  @HostListener('requestRegisterContainer', ['$event']) private registerChildContainer(e) {
+    console.log(`a panel heard this from ${e.name}`)
+    this.requestRegisterContainer.emit(e);
+  }
 
-  constructor() { }
+  constructor(private el: ElementRef) {
+    // el.nativeElement.dispatchEvent()
+  }
 
   ngOnInit() {
   }
