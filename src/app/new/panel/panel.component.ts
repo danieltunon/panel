@@ -13,7 +13,7 @@ import {
   styleUrls: ['./panel.component.less']
 })
 export class PanelComponent implements OnInit {
-  @HostBinding('style.flexBasis.px') public flexBasis: number;
+  @HostBinding('style.flexBasis.px') private flexBasis: number;
 
   constructor(private el: ElementRef) {
     // el.nativeElement.dispatchEvent()
