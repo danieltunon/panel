@@ -1,0 +1,51 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    // not sure if this is needed
+    // &@{deep}[panel-content-1], @{deep}[panel-content-2] {
+    //     height: 100%;
+    //     width: 100%;
+    // }
+    &.dragging {
+        &.row {
+            cursor: w-resize;
+        }
+        &.column {
+            cursor: n-resize;
+        }
+        .panel-splitter {
+            background-color: #007cff;
+        }
+    }
+}
+
+.panel-splitter {
+    position: relative;
+    background-color: gray;
+    flex: 0 0 4px;
+    &:hover {
+        background-color: #007cff; //@boldblue
+    }
+    &::after {
+        content: ' ';
+        position: absolute;
+    }
+    &.row::after {
+        cursor: w-resize;
+        top: 0;
+        left: -5px;
+        width: 14px;
+        height: 100%;
+    }
+    &.column::after {
+        cursor: n-resize;
+        left: 0;
+        top: -5px;
+        height: 14px;
+        width: 100%;
+    }
+}

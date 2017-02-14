@@ -1,3 +1,7 @@
-<p>
-  vertical-panel-container works!
-</p>
+<ng-content select="[first-panel]"></ng-content>
+<splitter (mousedown)="startDrag($event)"></splitter>
+<!--<div #splitter class="panel-splitter {{direction}}" #firstSplitter (mousedown)="startDrag({e: $event, i: 0}); false;"></div>-->
+<ng-content select="[second-panel]"></ng-content>
+<splitter *ngIf="panels.length === 3" (mousedown)="startDrag($event)"></splitter>
+<!--<div #splitter *ngIf="panels.length === 3" class="panel-splitter {{direction}}" #secondSplitter (mousedown)="startDrag({e: $event, i: 1}); false;"></div>-->
+<ng-content select="[third-panel]"></ng-content>
