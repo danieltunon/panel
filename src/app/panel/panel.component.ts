@@ -6,7 +6,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
   styleUrls: ['./panel.component.less']
 })
 export class PanelComponent implements OnInit {
-  @HostBinding('style.flexBasis.px') private flexBasis: number;
+  @HostBinding('style.flexBasis.px') public flexBasis: number;
 
   constructor() { }
 
