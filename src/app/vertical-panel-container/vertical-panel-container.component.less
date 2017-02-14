@@ -11,41 +11,17 @@
     //     width: 100%;
     // }
     &.dragging {
-        &.row {
-            cursor: w-resize;
-        }
-        &.column {
-            cursor: n-resize;
-        }
-        .panel-splitter {
+        cursor: w-resize;
+        splitter {
             background-color: #007cff;
         }
     }
 }
 
-.panel-splitter {
-    position: relative;
-    background-color: gray;
-    flex: 0 0 4px;
-    &:hover {
-        background-color: #007cff; //@boldblue
-    }
-    &::after {
-        content: ' ';
-        position: absolute;
-    }
-    &.row::after {
-        cursor: w-resize;
-        top: 0;
-        left: -5px;
-        width: 14px;
-        height: 100%;
-    }
-    &.column::after {
-        cursor: n-resize;
-        left: 0;
-        top: -5px;
-        height: 14px;
-        width: 100%;
-    }
+splitter::after {
+    cursor: w-resize;
+    top: 0;
+    left: -5px;
+    width: 14px;
+    height: 100%;
 }

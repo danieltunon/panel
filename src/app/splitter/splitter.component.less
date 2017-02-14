@@ -1,0 +1,25 @@
+:host[vertical] {
+    position: relative;
+    background-color: gray;
+    flex: 0 0 4px;
+    &:hover {
+        background-color: #007cff; //@boldblue
+    }
+    &::after {
+        content: ' ';
+        position: absolute;
+    }
+}
+
+:host[horizontal] {
+    position: relative;
+    background-color: gray;
+    flex: 0 0 4px;
+    &:hover {
+        background-color: #007cff; //@boldblue
+    }
+    &::after {
+        content: ' ';
+        position: absolute;
+    }
+}
