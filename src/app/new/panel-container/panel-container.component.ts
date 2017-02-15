@@ -6,10 +6,12 @@ import {
   OnInit,
   EventEmitter,
   HostListener,
+  HostBinding,
   Optional,
   SkipSelf,
   forwardRef,
   Inject,
+  ElementRef
 } from '@angular/core';
 import { PanelComponent } from '../panel/panel.component';
 import { PanelSizingService, Orientation } from './panel-sizing.service';
@@ -26,7 +28,13 @@ import { PanelSizingService, Orientation } from './panel-sizing.service';
 export class PanelContainerComponent {
   private parentContainer: PanelContainerComponent = null;
   @Input() name: string;
+  @HostBinding('class') @Input() orientation: Orientation = Orientation.Vertical;
+  @Input() panelQuantity: number;
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
+
+  firstFlexBasis: number;
+  secondFlexBasis: number;
+  thirdFlexBasis: number;
 
   containerSize: number;
 
@@ -34,20 +42,21 @@ export class PanelContainerComponent {
     @Inject('Window') private window: Window,
     @SkipSelf() @Optional() private parent: PanelContainerComponent,
     private sizingService: PanelSizingService,
+    private el: ElementRef,
   ) {
     sizingService.setOrientation(Orientation.Vertical);
     sizingService.setHostContainer(this);
-    console.log(parent);
+    console.log(el)
   }
 
   ngOnInit() {
-    console.log(this.parent)
+    console.log(this.name, 'init', this.parent)
     // if (!this.parentContainer) {
-      this.containerSize = this.window.innerWidth;
+      this.containerSize = this.window.innerWidth - (this.panelQuantity - 1) * 4;
     // }
-    this.sizingService.firstFlexBasis = this.containerSize / 3;
-    this.sizingService.secondFlexBasis = this.containerSize / 3;
-    this.sizingService.thirdFlexBasis = this.containerSize / 3;
+    this.firstFlexBasis = this.containerSize / 3;
+    this.secondFlexBasis = this.containerSize / 3;
+    this.thirdFlexBasis = this.containerSize / 3;
   }
 
   ngAfterViewInit() {

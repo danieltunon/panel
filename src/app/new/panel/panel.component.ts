@@ -15,14 +15,13 @@ import { PanelSizingService } from '../panel-container/panel-sizing.service';
   styleUrls: ['./panel.component.less'],
 })
 export class PanelComponent implements OnInit {
-  @HostBinding('style.flexBasis.px') @Input() private flexBasis: number;
+  @HostBinding('style.flexBasis.px') @Input() flexBasis: number;
 
   constructor(private el: ElementRef, private sizingService: PanelSizingService) {
     // el.nativeElement.dispatchEvent()
   }
 
   ngOnInit() {
-    this.sizingService;
   }
 
   setFlexBasis(flexBasis: number, /*containerSize: number*/): void {

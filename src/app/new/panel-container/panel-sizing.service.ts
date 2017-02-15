@@ -70,7 +70,7 @@ export class PanelSizingService {
 
   constructor(hostEl: ElementRef, @Inject('Window') private window: Window) {
     this.hostEl = hostEl.nativeElement;
-    console.log(window);
+    // console.log(window);
   }
 
 }

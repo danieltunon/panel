@@ -1,13 +1,13 @@
 <panel [flexBasis]="firstFlexBasis">
     <ng-content select="[first-panel]"></ng-content>
 </panel>
-<splitter orientation (mousedown)="onMouseDown($event, 0)"></splitter>
+<splitter class="{{orientation}}" (mousedown)="onMouseDown($event, 0)"></splitter>
 <!--<div #splitter class="panel-splitter {{direction}}" #firstSplitter (mousedown)="onMouseDown({e: $event, i: 0}); false;"></div>-->
 <panel [flexBasis]="secondFlexBasis">
     <ng-content select="[second-panel]"></ng-content>
 </panel>
-<splitter orientation *ngIf="panels.length === 3" (mousedown)="onMouseDown($event, 1)"></splitter>
+<splitter class="{{orientation}}" *ngIf="panelQuantity === 3" (mousedown)="onMouseDown($event, 1)"></splitter>
 <!--<div #splitter *ngIf="panels.length === 3" class="panel-splitter {{direction}}" #secondSplitter (mousedown)="onMouseDown({e: $event, i: 1}); false;"></div>-->
-<panel *ngIf="panels.length === 3" [flexBasis]="thirdFlexBasis">
+<panel *ngIf="panelQuantity === 3" [flexBasis]="thirdFlexBasis">
     <ng-content select="[third-panel]"></ng-content>
 </panel>
