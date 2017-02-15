@@ -60,10 +60,11 @@ export class PanelContainerComponent {
     let splitterSize = this.splitters.toArray().reduce((total, s) => total + s.nativeElement.getBoundingClientRect()[dimesion], 0)
     let containerSize = this.el.nativeElement.getBoundingClientRect()[dimesion] - splitterSize;
     let panels = this.panels.toArray().slice(this.activeSplitter, this.activeSplitter + 2);
-    console.log(this.name, 'b4', 'panel1', panels[0].flexBasis, 'panel2', panels[1].flexBasis)
-    panels[0].flexBasis += position - this.startPosition;
-    panels[1].flexBasis -= position - this.startPosition;
-    console.log(this.name, 'after', 'panel1', panels[0].flexBasis, 'panel2', panels[1].flexBasis)
+    // made flexBasis a private property so this now throws errors
+    // console.log(this.name, 'b4', 'panel1', panels[0].flexBasis, 'panel2', panels[1].flexBasis)
+    // panels[0].flexBasis += position - this.startPosition;
+    // panels[1].flexBasis -= position - this.startPosition;
+    // console.log(this.name, 'after', 'panel1', panels[0].flexBasis, 'panel2', panels[1].flexBasis)
     this.startPosition = position;
   }
 
@@ -91,7 +92,8 @@ export class PanelContainerComponent {
                         this.splitters.toArray().reduce((total, s) => total + s.nativeElement.getBoundingClientRect()[dimesion], 0);
     this.panelSizes = this.panels.toArray().map((p, i, a) => containerSize / a.length)
     console.log(this.panelSizes)
-    window.setTimeout(() => this.panels.forEach((p, i) => p.flexBasis = this.panelSizes[i]));
+    // this is same problem as above: throws errors now because flexBasis is private property of panel
+    // window.setTimeout(() => this.panels.forEach((p, i) => p.flexBasis = this.panelSizes[i]));
   }
 
 }
