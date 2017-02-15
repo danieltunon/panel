@@ -1,4 +1,4 @@
-import { Injectable, ElementRef } from '@angular/core';
+import { Injectable, Inject, ElementRef } from '@angular/core';
 import { IPanelContainer } from './panel-container';
 import { PanelComponent } from '../panel/panel.component';
 
@@ -17,6 +17,17 @@ export class PanelSizingService {
   private startCoordinate: number;
   private activeSplitter: number;
   private panelSizes: Array<number>;
+
+  // NEW STUFF
+  containerSize: number;
+  firstFlexBasis: number;
+  secondFlexBasis: number;
+  thirdFlexBasis: number;
+  firstResizing: boolean = false;
+  secondResizing: boolean = false;
+  COLLAPSED_WIDTH: number = 36;
+  MIN_WIDTH_FB: number = 320;
+  // END NEW STUFF
 
   onResize(e: MouseEvent) {
     e.preventDefault();
@@ -57,8 +68,9 @@ export class PanelSizingService {
     this.hostContainer.panels.forEach((p, i) => p.setFlexBasis(this.panelSizes[i]));
   }
 
-  constructor(hostEl: ElementRef) {
+  constructor(hostEl: ElementRef, @Inject('Window') private window: Window) {
     this.hostEl = hostEl.nativeElement;
+    console.log(window);
   }
 
 }

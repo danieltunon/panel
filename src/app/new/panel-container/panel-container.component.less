@@ -1,0 +1,56 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    // not sure if this is needed
+    // &@{deep}[panel-content-1], @{deep}[panel-content-2] {
+    //     height: 100%;
+    //     width: 100%;
+    // }
+    &.dragging {
+        cursor: n-resize;
+        splitter {
+            background-color: #007cff;
+        }
+    }
+}
+
+splitter::after {
+    cursor: n-resize;
+    left: 0;
+    top: -5px;
+    height: 14px;
+    width: 100%;
+}
+
+// vertical
+// :host {
+//     display: flex;
+//     flex-direction: row;
+//     flex-grow: 1;
+//     height: 100%;
+//     width: 100%;
+//     position: relative;
+//     // not sure if this is needed
+//     // &@{deep}[panel-content-1], @{deep}[panel-content-2] {
+//     //     height: 100%;
+//     //     width: 100%;
+//     // }
+//     &.dragging {
+//         cursor: w-resize;
+//         splitter {
+//             background-color: #007cff;
+//         }
+//     }
+// }
+
+// splitter::after {
+//     cursor: w-resize;
+//     top: 0;
+//     left: -5px;
+//     width: 14px;
+//     height: 100%;
+// }

@@ -23,7 +23,7 @@ import
     // '[style.flexDirection]': 'direction',
   }
 })
-export class PanelContainerComponent {
+export class OldPanelContainerComponent {
   @HostBinding('style.flexDirection') @Input() direction: string = 'row';
   @HostBinding('class.resizing') private isResizing: boolean = false;
   @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;

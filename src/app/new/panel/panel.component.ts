@@ -6,20 +6,22 @@ import {
   EventEmitter,
   HostListener,
 } from '@angular/core';
+import { PanelSizingService } from '../panel-container/panel-sizing.service';
 
 @Component({
   selector: 'panel',
   templateUrl: './panel.component.html',
-  styleUrls: ['./panel.component.less']
+  styleUrls: ['./panel.component.less'],
 })
 export class PanelComponent implements OnInit {
   @HostBinding('style.flexBasis.px') private flexBasis: number;
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef, private sizingService: PanelSizingService) {
     // el.nativeElement.dispatchEvent()
   }
 
   ngOnInit() {
+    this.sizingService[]
   }
 
   setFlexBasis(flexBasis: number, /*containerSize: number*/): void {
