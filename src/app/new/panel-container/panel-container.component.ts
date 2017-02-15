@@ -30,7 +30,7 @@ export class PanelContainerComponent {
   @Input() name: string;
   @HostBinding('class') @Input() orientation: Orientation = Orientation.Vertical;
   @Input() panelQuantity: number;
-  @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
+  // @ContentChildren(PanelComponent) panels: QueryList<PanelComponent>;
 
   firstFlexBasis: number;
   secondFlexBasis: number;
@@ -41,16 +41,16 @@ export class PanelContainerComponent {
   constructor(
     @Inject('Window') private window: Window,
     @SkipSelf() @Optional() private parent: PanelContainerComponent,
+    @SkipSelf() @Optional() private parentPanel: PanelComponent,
     private sizingService: PanelSizingService,
     private el: ElementRef,
   ) {
-    sizingService.setOrientation(Orientation.Vertical);
-    sizingService.setHostContainer(this);
-    console.log(el)
+    // sizingService.setOrientation(Orientation.Vertical);
+    // sizingService.setHostContainer(this);
   }
 
   ngOnInit() {
-    console.log(this.name, 'init', this.parent)
+    console.log(this.name, 'init', this.parentPanel)
     // if (!this.parentContainer) {
       this.containerSize = this.window.innerWidth - (this.panelQuantity - 1) * 4;
     // }
@@ -60,7 +60,7 @@ export class PanelContainerComponent {
   }
 
   ngAfterViewInit() {
-     window.setTimeout(() => this.sizingService.initializePanelSizes(this.panels.toArray()));
+    //  window.setTimeout(() => this.sizingService.initializePanelSizes(this.panels.toArray()));
   }
 
   @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { this.sizingService.onResize(e) }
