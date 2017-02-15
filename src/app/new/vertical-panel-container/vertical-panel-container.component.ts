@@ -33,15 +33,21 @@ export class VerticalPanelContainerComponent implements IPanelContainer {
     private sizingService: PanelSizingService,
   ) {
     sizingService.setOrientation(Orientation.Vertical);
+    sizingService.setHostContainer(this);
+
   }
 
   ngOnInit() {
   }
 
-  @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { this.sizingService.onMouseMove(e) }
-  @HostListener('mouseup', ['$event']) endDrag(e: MouseEvent) { this.sizingService.endDrag(e) }
-  startDrag(e: MouseEvent) {
-    this.sizingService.startDrag();
+  ngAfterViewInit() {
+     window.setTimeout(() => this.sizingService.initializePanelSizes(this.panels.toArray()));
+  }
+
+  @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { this.sizingService.onResize(e) }
+  @HostListener('mouseup', ['$event']) onMouseUp(e: MouseEvent) { this.sizingService.endResize(e) }
+  onMouseDown(e: MouseEvent, splitterIndex: number) {
+    this.sizingService.startResize(e, splitterIndex);
   }
 
 }
