@@ -1,4 +1,4 @@
-:host[vertical] {
+:host.vertical {
     position: relative;
     background-color: gray;
     flex: 0 0 4px;
@@ -8,10 +8,15 @@
     &::after {
         content: ' ';
         position: absolute;
+        cursor: w-resize;
+        top: 0;
+        left: -5px;
+        width: 14px;
+        height: 100%;
     }
 }
 
-:host[horizontal] {
+:host.horizontal {
     position: relative;
     background-color: gray;
     flex: 0 0 4px;
@@ -21,5 +26,10 @@
     &::after {
         content: ' ';
         position: absolute;
+        cursor: n-resize;
+        left: 0;
+        top: -5px;
+        height: 14px;
+        width: 100%;
     }
 }
