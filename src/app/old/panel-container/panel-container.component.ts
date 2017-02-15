@@ -13,7 +13,7 @@ import
   import { PanelComponent } from '../../new/panel/panel.component';
 
 @Component({
-  selector: 'panel-container',
+  selector: 'old-panel-container',
   templateUrl: './panel-container.component.html',
   styleUrls: ['./panel-container.component.less'],
   providers: [],
