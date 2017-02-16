@@ -10,6 +10,6 @@
 
 <div class="panel-splitter" #secondSplitter (mousedown)="onMouseDown({e: $event, i: 1}); false;"></div>
 
-<panel [flexBasis]="thirdFlexBasis">
+<panel>
     <ng-content select="[third-panel]"></ng-content>
 </panel>
