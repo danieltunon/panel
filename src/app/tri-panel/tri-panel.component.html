@@ -1,3 +1,15 @@
-<p>
-  tri-panel works!
-</p>
+<panel>
+    <ng-content select="[first-panel]"></ng-content>
+</panel>
+
+<div class="panel-splitter" #firstSplitter (mousedown)="onMouseDown({e: $event, i: 0}); false;"></div>
+
+<panel>
+    <ng-content select="[second-panel]"></ng-content>
+</panel>
+
+<div class="panel-splitter" #secondSplitter (mousedown)="onMouseDown({e: $event, i: 1}); false;"></div>
+
+<panel [flexBasis]="thirdFlexBasis">
+    <ng-content select="[third-panel]"></ng-content>
+</panel>
