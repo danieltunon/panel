@@ -1,0 +1,39 @@
+:host {
+    display: flex;
+    flex-grow: 1;
+    position: relative;
+}
+
+.panel-content {
+    flex-direction: column;
+    overflow: hidden;
+    border: none;
+    // transition: flex-basis 300ms ease-out;
+}
+
+.panel-splitter {
+    position: relative;
+    background-color: gray;
+    flex: 0 0 4px;
+    &:hover {
+        background-color: #007cff; //@boldblue
+    }
+    &.vertical::after {
+        content: ' ';
+        position: absolute;
+        cursor: w-resize;
+        top: 0;
+        left: -5px;
+        width: 14px;
+        height: 100%;
+    }
+    &.horizontal::after {
+        content: ' ';
+        position: absolute;
+        cursor: n-resize;
+        left: 0;
+        top: -5px;
+        height: 14px;
+        width: 100%;
+    }
+}

@@ -1,5 +1,9 @@
-<ng-content select="[panel=1]"></ng-content>
+<div class="panel-content" #panel1>
+    <ng-content select="[panel=1]"></ng-content>
+</div>
 
-<div class="panel-splitter" #firstSplitter (mousedown)="onMouseDown({e: $event, i: 0}); false;"></div>
+<div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="onMouseDown({e: $event, targets: [panel1, panel2]}); false;"></div>
 
-<ng-content select="[panel=2]"></ng-content>
+<div class="panel-content" #panel2>
+    <ng-content select="[panel=2]"></ng-content>
+</div>
