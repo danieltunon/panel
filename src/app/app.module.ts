@@ -6,18 +6,18 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
-import { PanelComponent } from './panel/panel.component';
 import { IconSmallArrowComponent } from './old/icon-small-arrow/icon-small-arrow.component';
 import { TestComponent } from './test/test.component';
+import { PanelDirective } from './directives/panel.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     TriPanelComponent,
     DualPanelComponent,
-    PanelComponent,
     IconSmallArrowComponent,
     TestComponent,
+    PanelDirective,
   ],
   imports: [
     BrowserModule,
