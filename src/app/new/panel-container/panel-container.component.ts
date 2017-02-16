@@ -2,6 +2,8 @@ import {
   Component,
   Input,
   ContentChildren,
+  ContentChild,
+  ViewChild,
   QueryList,
   OnInit,
   EventEmitter,
@@ -46,8 +48,8 @@ export class PanelContainerComponent {
 
   constructor(
     @Inject('Window') private window: Window,
-    @SkipSelf() @Optional() private parent: PanelContainerComponent,
-    @SkipSelf() @Optional() private parentPanel: PanelComponent,
+    // @SkipSelf() @Optional() private parent: PanelContainerComponent,
+    // @SkipSelf() @Optional() private parentPanel: PanelComponent,
     private sizingService: PanelSizingService,
     private el: ElementRef,
   ) {
@@ -56,7 +58,7 @@ export class PanelContainerComponent {
   }
 
   ngOnInit() {
-    console.log(this.name, 'init', this.parentPanel)
+    // console.log(this.name, 'init', this.parentPanel)
     // if (!this.parentContainer) {
       this.containerSize = this.window.innerWidth - (this.panelQuantity - 1) * 4;
     // }
@@ -76,9 +78,10 @@ export class PanelContainerComponent {
     }
   }
 
-  ngAfterViewInit() {
-    //  window.setTimeout(() => this.sizingService.initializePanelSizes(this.panels.toArray()));
-  }
+  // @ContentChildren(PanelContainerComponent) nestedPanelContainerC;
+  // ngAfterContentInit() {
+  //   console.log(this.name, 'cont', this.nestedPanelContainerC)
+  // }
 
   @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { this.onResize(e) }
   @HostListener('mouseup', ['$event']) onMouseUp(e: MouseEvent) { this.endResize(e) }
