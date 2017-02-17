@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding, HostListener, Renderer, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, HostBinding, HostListener, Renderer, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
@@ -11,7 +11,10 @@ import 'rxjs/add/operator/takeUntil';
 })
 export class TriPanelComponent implements OnInit {
   @Input() orientation: string;
+  @Input('initialSize') private _containerSize: number;
   @HostBinding('style.flexDirection') private _flexDirection: string;
+  @ViewChildren('panel1,panel2,panel3') panels: QueryList<ElementRef>;
+  private _panelSizes: Map<HTMLElement, number> = new Map();
 
   private _axis: string;
   private _dimension: string;
@@ -25,7 +28,7 @@ export class TriPanelComponent implements OnInit {
         startPosition: curr[this._axis],
         delta: curr[this._axis] - acc.startPosition
       }), {startPosition: start.e[this._axis], delta: 0})
-      .map(r => r.delta)
+      .map(resize => ({delta: resize.delta, targets: start.targets}))
       .takeUntil(this.endResize$);
   });
 
@@ -35,21 +38,40 @@ export class TriPanelComponent implements OnInit {
   //   this.startResize$.next({e, targets});
   // }
 
-  constructor(/*private _renderer: Renderer, private _element: ElementRef*/) { }
+  constructor(private _renderer: Renderer, private _element: ElementRef) { }
 
   ngOnInit() {
     this._checkOrientation()
     switch (this.orientation) {
       case 'horizontal':
         this._dimension = 'height';
-        this._axis = 'clientY';       
+        this._axis = 'clientY';
         break;
       case 'vertical':
       default:
         this._dimension = 'width';
-        this._axis = 'clientX';     
+        this._axis = 'clientX';
         break;
     }
+
+    this.drag$.subscribe(resize => {
+      this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
+      this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
+      this.setFB();
+    })
+
+  }
+
+  ngAfterViewInit() {
+    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, (this._containerSize - 8) / 3));
+
+    this.setFB();
+  }
+
+  setFB() {
+    this.panels.forEach(p => {
+      this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
+    })
   }
 
   private _checkOrientation() {
