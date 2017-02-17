@@ -1,13 +1,28 @@
-import { Component, OnInit, Input, HostBinding, HostListener, Renderer, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component, OnInit,
+  Input, HostBinding, HostListener,
+  ViewChildren, QueryList,
+  Renderer, ElementRef,
+  forwardRef, SkipSelf, Optional,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
 
+export abstract class IPanelContainer {
+  panels: QueryList<ElementRef>;
+  orientation: string;
+  name: string;
+}
+
 @Component({
   selector: 'tri-panel',
   templateUrl: './tri-panel.component.html',
-  styleUrls: ['./tri-panel.component.less']
+  styleUrls: ['./tri-panel.component.less'],
+  providers: [
+    {provide: IPanelContainer, useExisting: forwardRef(() => TriPanelComponent)},
+  ]
 })
 export class TriPanelComponent implements OnInit {
   @Input() orientation: string;
@@ -38,7 +53,10 @@ export class TriPanelComponent implements OnInit {
   //   this.startResize$.next({e, targets});
   // }
 
-  constructor(private _renderer: Renderer, private _element: ElementRef) { }
+  constructor(
+    private _renderer: Renderer,
+    private _element: ElementRef,
+    @SkipSelf() @Optional() private _parentContainer: IPanelContainer,) { }
 
   ngOnInit() {
     this._checkOrientation()
@@ -59,7 +77,6 @@ export class TriPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
     })
-
   }
 
   ngAfterViewInit() {

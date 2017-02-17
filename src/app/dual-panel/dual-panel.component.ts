@@ -1,20 +1,33 @@
-import { Component, OnInit, Input, HostBinding, HostListener, Renderer, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import {
+  Component, OnInit,
+  Input, HostBinding, HostListener,
+  ViewChildren, QueryList,
+  Renderer, ElementRef,
+  forwardRef, SkipSelf, Optional,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
 
+import { IPanelContainer } from '../tri-panel/tri-panel.component';
+import { TriPanelComponent } from '../tri-panel/tri-panel.component';
+
 @Component({
   selector: 'dual-panel',
   templateUrl: './dual-panel.component.html',
-  styleUrls: ['./dual-panel.component.less']
+  styleUrls: ['./dual-panel.component.less'],
+  providers: [
+    {provide: IPanelContainer, useExisting: forwardRef(() => DualPanelComponent)},
+  ]
 })
 export class DualPanelComponent implements OnInit {
   @Input() orientation: string;
   @Input('initialSize') private _containerSize: number;
   @HostBinding('style.flexDirection') private _flexDirection: string;
-  @ViewChildren('panel1,panel2,panel3') panels: QueryList<ElementRef>;
+  @ViewChildren('panel1,panel2') panels: QueryList<ElementRef>;
   private _panelSizes: Map<HTMLElement, number> = new Map();
+  private _containerChildren: Array<DualPanelComponent|TriPanelComponent>;
 
   private _axis: string;
   private _dimension: string;
@@ -38,7 +51,10 @@ export class DualPanelComponent implements OnInit {
   //   this.startResize$.next({e, targets});
   // }
 
-  constructor(private _renderer: Renderer, private _element: ElementRef) { }
+  constructor(
+    private _renderer: Renderer,
+    private _element: ElementRef,
+    @SkipSelf() @Optional() private _parentContainer: IPanelContainer,) { }
 
   ngOnInit() {
     this._checkOrientation();
@@ -60,12 +76,11 @@ export class DualPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
     })
-
+    console.log('par', this._parentContainer)
   }
 
   ngAfterViewInit() {
     this.panels.forEach(p => this._panelSizes.set(p.nativeElement, (this._containerSize - 4) / 2));
-
     this.setFB();
   }
 
@@ -84,8 +99,11 @@ export class DualPanelComponent implements OnInit {
 
   private _checkContainerSize() {
     if (typeof this._containerSize !== 'number') {
-      console.log(this._element.nativeElement.getBoundingClientRect().width);
+      // console.log(this._element.nativeElement.getBoundingClientRect().width);
     }
+  }
+  public addChildContainer(child: DualPanelComponent|TriPanelComponent) {
+    this._containerChildren.push(child);
   }
 
 }
