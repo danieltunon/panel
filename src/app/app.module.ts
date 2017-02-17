@@ -8,7 +8,7 @@ import { TriPanelComponent } from './tri-panel/tri-panel.component';
 import { DualPanelComponent } from './dual-panel/dual-panel.component';
 import { IconSmallArrowComponent } from './old/icon-small-arrow/icon-small-arrow.component';
 import { TestComponent } from './test/test.component';
-import { PanelDirective } from './directives/panel.directive';
+import { PanelDirective } from './shared/panel.directive';
 
 @NgModule({
   declarations: [
