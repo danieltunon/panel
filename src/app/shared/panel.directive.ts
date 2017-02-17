@@ -5,6 +5,7 @@ import { Directive, Input, OnInit } from '@angular/core';
 })
 export class PanelDirective implements OnInit {
   @Input('panel') _order: number;
+  @Input() name: string;
 
   constructor() { }
 
