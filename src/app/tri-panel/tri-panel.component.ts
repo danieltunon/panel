@@ -10,10 +10,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
 
+import { DualPanelComponent } from  '../dual-panel/dual-panel.component';
+
 export abstract class IPanelContainer {
   panels: QueryList<ElementRef>;
   orientation: string;
   name: string;
+  requestPanelDimensions: Function;
 }
 
 @Component({
@@ -25,14 +28,17 @@ export abstract class IPanelContainer {
   ]
 })
 export class TriPanelComponent implements OnInit {
+  @Input() name: string;
   @Input() orientation: string;
   @Input('initialSize') private _containerSize: number;
   @HostBinding('style.flexDirection') private _flexDirection: string;
   @ViewChildren('panel1,panel2,panel3') panels: QueryList<ElementRef>;
   private _panelSizes: Map<HTMLElement, number> = new Map();
+  private _containerChildren: Array<DualPanelComponent|TriPanelComponent>;
 
   private _axis: string;
   private _dimension: string;
+  private _defaultPanelSize: number;
 
   startResize$: Subject<any> = new Subject();
   endResize$: Subject<any> = new Subject();
@@ -59,7 +65,8 @@ export class TriPanelComponent implements OnInit {
     @SkipSelf() @Optional() private _parentContainer: IPanelContainer,) { }
 
   ngOnInit() {
-    this._checkOrientation()
+    this._checkOrientation();
+    this._checkContainerSize();
     switch (this.orientation) {
       case 'horizontal':
         this._dimension = 'height';
@@ -77,10 +84,14 @@ export class TriPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
     })
+    // window[this.name] = this;
+    // console.log(this)
+    // console.log(this.name, 'found parent -->', this._parentContainer ? this._parentContainer.name : 'none');
+
   }
 
   ngAfterViewInit() {
-    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, (this._containerSize - 8) / 3));
+    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._defaultPanelSize));
 
     this.setFB();
   }
@@ -96,6 +107,25 @@ export class TriPanelComponent implements OnInit {
       throw new Error(`Panel container orientation must be either 'vertical' or 'horizontal'. Example: <tri-panel [orientation]="'horizontal'">`);
     }
     this._flexDirection = this.orientation === 'vertical' ? 'row' : 'column';
+  }
+
+  private _checkContainerSize() {
+    if (typeof this._containerSize !== 'number') {
+      console.log(this._containerSize)
+      this._containerSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
+      console.log(this._containerSize, this._element.nativeElement.parentElement)
+
+    }
+    this._defaultPanelSize = (this._containerSize - 8) / 3;
+  }
+
+  public addChildContainer(child: DualPanelComponent|TriPanelComponent) {
+    this._containerChildren.push(child);
+  }
+
+  public requestPanelDimensions(panel: HTMLElement): number {
+    let size = this._panelSizes.get(panel);
+    return size ? size : (this._containerSize - 8) / 3;
   }
 
 }
