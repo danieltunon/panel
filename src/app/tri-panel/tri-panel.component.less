@@ -1,7 +1,11 @@
+@deep: ~"/deep/";
+
 :host {
     display: flex;
     flex-grow: 1;
     position: relative;
+    height: 100%;
+    width: 100%;
 }
 
 .panel-content {
@@ -9,6 +13,11 @@
     overflow: hidden;
     border: none;
     // transition: flex-basis 300ms ease-out;
+}
+
+.panel-content > @{deep} {
+    flex-grow: 1;
+    // overflow-y: auto;
 }
 
 .panel-splitter {
