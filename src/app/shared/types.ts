@@ -5,6 +5,7 @@ export abstract class IPanelContainer {
   orientation: string;
   name: string;
   requestPanelDimensions: Function;
+  addChildContainer: Function;
 }
 
 export interface IContainerSize {

@@ -27,7 +27,7 @@ export class TriPanelComponent implements OnInit {
   @HostBinding('style.flexDirection') private _flexDirection: string;
   @ViewChildren('panel1,panel2,panel3') panels: QueryList<ElementRef>;
   private _panelSizes: Map<HTMLElement, number> = new Map();
-  private _containerChildren: Array<DualPanelComponent|TriPanelComponent>;
+  private _containerChildren: Array<DualPanelComponent|TriPanelComponent> = [];
   // TODO: rename to containerDimensions or something
   private _containerSize: IContainerSize;
   private _axis: string;
@@ -77,7 +77,10 @@ export class TriPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
+      this._containerChildren.forEach(c => { c._setContainerSize(); c.setFB() })
     });
+
+    if (this._parentContainer) this._parentContainer.addChildContainer(this);
   }
 
   ngAfterViewInit() {
@@ -86,6 +89,7 @@ export class TriPanelComponent implements OnInit {
   }
 
   setFB() {
+    console.log(this.name, 'called fb')
     this.panels.forEach(p => {
       this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
     });
@@ -98,7 +102,8 @@ export class TriPanelComponent implements OnInit {
     this._flexDirection = this.orientation === 'vertical' ? 'row' : 'column';
   }
 
-  private _setContainerSize() {
+  public _setContainerSize() {
+    console.log(this.name, 'called scs')
     if (!this._parentContainer) {
       let rect: ClientRect = this._element.nativeElement.getBoundingClientRect();
       this._containerSize = {
@@ -112,6 +117,10 @@ export class TriPanelComponent implements OnInit {
 
   private _getDefaultPanelSize(): number {
     return (this._containerSize[this._dimension] - 8) / 3;
+  }
+
+  private _requestParentNotifications(parent: DualPanelComponent|TriPanelComponent) {
+    parent.addChildContainer(this);
   }
 
   public addChildContainer(child: DualPanelComponent|TriPanelComponent) {
