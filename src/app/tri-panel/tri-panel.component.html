@@ -1,15 +1,18 @@
 <div class="panel-content" #panel1>
+    <div class="panel-header"><span class="panel-header-label">{{name}}.1</span></div>
     <ng-content select="[panel=1]"></ng-content>
 </div>
 
 <div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="startResize$.next({e: $event, targets: [panel1, panel2]}); false;"></div>
 
 <div class="panel-content" #panel2>
+    <div class="panel-header"><span class="panel-header-label">{{name}}.2</span></div>
     <ng-content select="[panel=2]"></ng-content>
 </div>
 
 <div class="panel-splitter {{orientation}}" #secondSplitter (mousedown)="startResize$.next({e: $event, targets: [panel2, panel3]}); false;"></div>
 
 <div class="panel-content" #panel3>
+    <div class="panel-header"><span class="panel-header-label">{{name}}.3</span></div>
     <ng-content select="[panel=3]"></ng-content>
 </div>

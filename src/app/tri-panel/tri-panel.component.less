@@ -1,3 +1,8 @@
+@import "../styles/base";
+@import "../styles/mixins";
+@import "../styles/typography";
+@import "../styles/rectangles";
+@import "../styles/icons";
 @deep: ~"/deep/";
 
 :host {
@@ -9,6 +14,8 @@
 }
 
 .panel-content {
+    .rectangle-gray242;
+    display: flex;
     flex-direction: column;
     overflow: hidden;
     border: none;
@@ -45,4 +52,30 @@
         height: 14px;
         width: 100%;
     }
+}
+
+.panel-header {
+    .rectangle-gray230;
+    height: 36px;
+    padding: 9px;
+    border-bottom: 1px solid #d4d4d4;
+    &.collapsable:hover {
+        .rectangle-lightblue-hover;
+        cursor: pointer;
+
+        .panel-header-label {
+            color: #007cff;//@boldblue;
+        }
+    }
+    .panel-header-label {
+        .text-panel-secondary-header;
+        .no-select;
+        display: inline-block;
+        transform: rotate(0deg);
+        transition: transform 300ms;
+    }
+    // overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
+    // z-index: 10;
 }
