@@ -22,9 +22,9 @@
     // transition: flex-basis 300ms ease-out;
 }
 
-.panel-content > @{deep} {
+.panel-content > @{deep}:not(.panel-header) {
     flex-grow: 1;
-    // overflow-y: auto;
+    overflow-y: auto;
 }
 
 .panel-splitter {
