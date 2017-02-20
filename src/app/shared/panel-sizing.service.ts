@@ -21,12 +21,12 @@ export class PanelSizingService {
   private _resizableDimension: string;
   private _defaultPanelSize: number;
 
-  startDrag$: Subject<any> = new Subject();
+  startDrag$: Subject<{e: MouseEvent, targets: Array<HTMLElement>}> = new Subject();
   endDrag$: Subject<any> = new Subject();
   drag$: Subject<any> = new Subject();
 
   resize$ = this.startDrag$.concatMap( start => {
-    return this.resize$
+    return this.drag$
       .scan((acc, curr) => ({
         startPosition: curr[this._resizableAxis],
         delta: curr[this._resizableAxis] - acc.startPosition
@@ -37,10 +37,10 @@ export class PanelSizingService {
 
   constructor(private _renderer: Renderer) {
     this.resize$.subscribe(resize => {
-      console.log(resize)
+      console.log(resize);
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
-      // this.setFB();
+      this.setFB();
       // this._containerChildren.forEach(c => { c._setContainerSize(); c.setFB() });
     });
   }
@@ -73,7 +73,10 @@ export class PanelSizingService {
 
   setPanels(panels: QueryList<ElementRef>) {
     this._panels = panels;
-    this._panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
+    this._panels.forEach(p => {
+      let s = new Subject();
+      this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize());
+    });
     this.setFB();
   }
 

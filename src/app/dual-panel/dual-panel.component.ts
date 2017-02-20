@@ -34,7 +34,7 @@ export class DualPanelComponent implements OnInit {
 
   @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { e.preventDefault(); this._sizingService.drag$.next(e) }
   @HostListener('mouseup', ['$event']) onMouseUp(e: MouseEvent) { this._sizingService.endDrag$.next(e) }
-  onMousedown(payload: {e: MouseEvent, targets: Array<ElementRef>}) {
+  onMousedown(payload: {e: MouseEvent, targets: Array<HTMLElement>}) {
     this._sizingService.startDrag$.next(payload);
   }
 
@@ -50,6 +50,7 @@ export class DualPanelComponent implements OnInit {
   ngOnInit() {
     this._checkOrientation();
     this._flexDirection = this.orientation === 'vertical' ? 'row' : 'column';
+    this._sizingService.setOrientation(this.orientation);
     this._sizingService.setContainerSize();
 
     // if (this._parentContainer) this._parentContainer.addChildContainer(this);
