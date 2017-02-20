@@ -3,7 +3,7 @@
     <ng-content select="[panel=1]"></ng-content>
 </div>
 
-<div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="startResize$.next({e: $event, targets: [panel1, panel2]})"></div>
+<div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="onMousedown({e: $event, targets: [panel1, panel2]})"></div>
 
 <div class="panel-content" #panel2>
     <div class="panel-header"><span class="panel-header-label">{{name}}.2</span></div>
