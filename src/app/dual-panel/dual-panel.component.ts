@@ -11,6 +11,7 @@ import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
 
 import { IPanelContainer, IContainerSize } from '../shared/types';
+import { PanelDirective } from '../shared/panel.directive';
 import { TriPanelComponent } from '../tri-panel/tri-panel.component';
 
 @Component({
@@ -56,7 +57,8 @@ export class DualPanelComponent implements OnInit {
   constructor(
     private _renderer: Renderer,
     private _element: ElementRef,
-    @SkipSelf() @Optional() private _parentContainer: IPanelContainer,) { }
+    @SkipSelf() @Optional() private _parentContainer: IPanelContainer,
+    @Optional() private _parentPanel: PanelDirective,) { }
 
   ngOnInit() {
     this._checkOrientation();
