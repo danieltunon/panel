@@ -34,6 +34,7 @@ export class DualPanelComponent implements OnInit {
   private _axis: string;
   private _dimension: string;
   private _defaultPanelSize: number;
+  public collapsedPanel: HTMLElement;
 
   startResize$: Subject<any> = new Subject();
   endResize$: Subject<any> = new Subject();
@@ -138,6 +139,27 @@ export class DualPanelComponent implements OnInit {
       this._panelSizes.set(panel, val * ratio);
     });
     this._containerSize = newSize;
+    this.setFB();
+  }
+
+  collapsePanel(toggledPanel: HTMLElement) {
+    if (this.collapsedPanel === toggledPanel) {
+      console.log('was collapsed')
+      this._panelSizes.forEach((v, p) => {
+        this._panelSizes.set(p, this._getDefaultPanelSize());
+      })
+      this.collapsedPanel = null;
+    } else {
+      const difference: number = this._panelSizes.get(toggledPanel) - 36;
+      this._panelSizes.forEach((v, p) => {
+        if (p === toggledPanel) {
+          this._panelSizes.set(p, 36);
+        } else {
+          this._panelSizes.set(p, v + difference);
+        }
+      });
+      this.collapsedPanel = toggledPanel;
+    }
     this.setFB();
   }
 

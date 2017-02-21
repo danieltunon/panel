@@ -59,7 +59,7 @@
     height: 36px;
     padding: 9px;
     border-bottom: 1px solid #d4d4d4;
-    &.collapsable:hover {
+    &:hover {
         .rectangle-lightblue-hover;
         cursor: pointer;
 
@@ -78,4 +78,18 @@
     // white-space: nowrap;
     // text-overflow: ellipsis;
     // z-index: 10;
+}
+
+.panel-content.collapsed {
+    .panel-header {
+        height: 100%;
+        width: 100%;
+        &.vertical > .panel-header-label {
+            display: inline-block;
+            // float: left;
+            transform-origin: bottom;
+            transform: rotate(-90deg);
+            transition: transform 300ms;
+        }
+    }
 }
