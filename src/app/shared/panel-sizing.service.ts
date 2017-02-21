@@ -1,11 +1,16 @@
 import { Injectable, QueryList, ElementRef, Renderer } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 import { IPanelContainer, IContainerSize } from '../shared/types';
 import { PanelDirective } from '../shared/panel.directive';
+
+interface IPanelSizesOperation extends Function {
+  (panelSizes: Map<HTMLElement, number>): Map<HTMLElement, number>;
+}
 
 @Injectable()
 export class PanelSizingService {
@@ -16,6 +21,7 @@ export class PanelSizingService {
   private _numberOfPanels: number;
   private _panels: QueryList<ElementRef>;
   private _panelSizes: Map<HTMLElement, number> = new Map();
+  private _panelSize$: Observable<Map<HTMLElement, number>>;
   private _containerDimensions: IContainerSize;
   private _resizableAxis: string;
   private _resizableDimension: string;
@@ -35,13 +41,12 @@ export class PanelSizingService {
       .takeUntil(this.endDrag$);
   });
 
+  updateSize$ = new Subject();
+
   constructor(private _renderer: Renderer) {
     this.resize$.subscribe(resize => {
-      console.log(resize);
-      this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
-      this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
-      this.setFB();
-      // this._containerChildren.forEach(c => { c._setContainerSize(); c.setFB() });
+      this.incrementPanelValue(resize.targets[0], resize.delta);
+      this.decrementPanelValue(resize.targets[1], resize.delta);
     });
   }
 
@@ -73,17 +78,21 @@ export class PanelSizingService {
 
   setPanels(panels: QueryList<ElementRef>) {
     this._panels = panels;
-    this._panels.forEach(p => {
-      let s = new Subject();
-      this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize());
-    });
-    this.setFB();
+    let initialPanelSizes: Map<HTMLElement, number> = new Map();
+    panels.forEach(p => initialPanelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
+    this._panelSize$ = this.updateSize$
+      .scan((panelSizes: Map<HTMLElement, number>,
+             operation: IPanelSizesOperation) => {
+               return operation(panelSizes);
+             }, initialPanelSizes)
+      .publishReplay(1)
+      .refCount()
+      .startWith(initialPanelSizes)
+    this._panelSize$.subscribe(sizes => sizes.forEach(this.setFlexBasis));
   }
 
-  setFB() {
-    this._panels.forEach(p => {
-      this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
-    });
+  setFlexBasis (value, panel) {
+    this._renderer.setElementStyle(panel, 'flex-basis', `${value}px`);
   }
 
   init(container: ElementRef, parentContainer: IPanelContainer, parentPanel: PanelDirective, numPanels: number) {
@@ -103,5 +112,16 @@ export class PanelSizingService {
     return Object.assign({}, this._containerSize, {[this._resizableDimension]: this._panelSizes.get(panel) || this._getDefaultPanelSize()});
   }
 
+  public requestPanelSize$(panel: HTMLElement): Observable<number> {
+    return this._panelSize$.map(sizes => sizes.get(panel)).distinctUntilChanged();
+  }
+
+  incrementPanelValue(panel: HTMLElement, value: number) {
+    this.updateSize$.next(sizes => sizes.set(panel, sizes.get(panel) + value));
+  }
+
+  decrementPanelValue(panel: HTMLElement, value: number) {
+    this.updateSize$.next(sizes => sizes.set(panel, sizes.get(panel) - value));
+  }
 
 }
