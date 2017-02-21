@@ -19,12 +19,16 @@
     flex-direction: column;
     overflow: hidden;
     border: none;
-    // transition: flex-basis 300ms ease-out;
+    transition: flex-basis 300ms ease-out;
 }
 
 .panel-content > @{deep}:not(.panel-header) {
     flex-grow: 1;
     overflow-y: auto;
+}
+
+.panel-content.collapsed > @{deep}:not(.panel-header) {
+    display: none;
 }
 
 .panel-splitter {
@@ -78,4 +82,20 @@
     // white-space: nowrap;
     // text-overflow: ellipsis;
     // z-index: 10;
+}
+
+.panel-content.collapsed {
+    .panel-header {
+        height: 100%;
+        width: 100%;
+        &.vertical > .panel-header-label {
+            display: inline-block;
+            position: relative;
+            left: 10px;
+            // float: left;
+            transform-origin: bottom;
+            transform: rotate(-90deg);
+            transition: transform 300ms;
+        }
+    }
 }

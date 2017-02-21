@@ -19,7 +19,7 @@
     flex-direction: column;
     overflow: hidden;
     border: none;
-    // transition: flex-basis 300ms ease-out;
+    transition: flex-basis 300ms ease-out;
 }
 
 .panel-content > @{deep}:not(.panel-header) {
@@ -86,7 +86,8 @@
         width: 100%;
         &.vertical > .panel-header-label {
             display: inline-block;
-            // float: left;
+            position: relative;
+            left: 10px;
             transform-origin: bottom;
             transform: rotate(-90deg);
             transition: transform 300ms;
