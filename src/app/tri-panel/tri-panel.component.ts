@@ -5,7 +5,7 @@ import {
   Renderer, ElementRef,
   forwardRef, SkipSelf, Optional,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/takeUntil';
@@ -74,8 +74,8 @@ export class TriPanelComponent implements OnInit {
     this._containerChildren.push(child);
   }
 
-  public requestPanelDimensions(panel: HTMLElement): IContainerSize {
-    return this._sizingService.getPanelDimensions(panel);
+  public requestPanelDimension$(panel: HTMLElement): Observable<IContainerSize> {
+    return this._sizingService.requestPanelSize$(panel);
   }
 
 }

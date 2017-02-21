@@ -4,7 +4,7 @@ export abstract class IPanelContainer {
   panels: QueryList<ElementRef>;
   orientation: string;
   name: string;
-  requestPanelDimensions: Function;
+  requestPanelDimension$: Function;
   addChildContainer: Function;
 }
 

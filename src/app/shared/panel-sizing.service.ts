@@ -20,7 +20,6 @@ export class PanelSizingService {
   private _parentContainer: IPanelContainer;
   private _numberOfPanels: number;
   private _panels: QueryList<ElementRef>;
-  private _panelSizes: Map<HTMLElement, number> = new Map();
   private _panelSize$: Observable<Map<HTMLElement, number>>;
   private _containerDimensions: IContainerSize;
   private _resizableAxis: string;
@@ -72,7 +71,9 @@ export class PanelSizingService {
         height: rect.height
       }
     } else {
-      this._containerSize = this._parentContainer.requestPanelDimensions(this._container.nativeElement.parentElement);
+      this._parentContainer.requestPanelDimension$(this._parentPanel)
+        .subscribe((dimensions: IContainerSize) => this._containerSize = dimensions);
+      // this._parentContainer.requestPanelDimensions$(this._container.nativeElement.parentElement);
     }
   }
 
@@ -108,12 +109,15 @@ export class PanelSizingService {
     return (this._containerSize[this._resizableDimension] - (4 * numSplitters)) / numPanels;
   }
 
-  public getPanelDimensions(panel: HTMLElement): IContainerSize {
-    return Object.assign({}, this._containerSize, {[this._resizableDimension]: this._panelSizes.get(panel) || this._getDefaultPanelSize()});
-  }
-
-  public requestPanelSize$(panel: HTMLElement): Observable<number> {
-    return this._panelSize$.map(sizes => sizes.get(panel)).distinctUntilChanged();
+  public requestPanelSize$(panel: HTMLElement): Observable<IContainerSize> {
+    return this._panelSize$
+      .map(sizes => sizes.get(panel))
+      .distinctUntilChanged()
+      .map(val =>
+        Object.assign({}, this._containerSize, {[this._resizableDimension]: val})
+      )
+      .publishReplay(1)
+      .refCount();
   }
 
   incrementPanelValue(panel: HTMLElement, value: number) {
@@ -122,6 +126,10 @@ export class PanelSizingService {
 
   decrementPanelValue(panel: HTMLElement, value: number) {
     this.updateSize$.next(sizes => sizes.set(panel, sizes.get(panel) - value));
+  }
+
+  proportionalReszize() {
+
   }
 
 }
