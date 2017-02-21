@@ -79,7 +79,7 @@ export class TriPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
-      this._containerChildren.forEach(c => { c._setContainerSize(); c.setFB() })
+      this._containerChildren.forEach(c => { c.updateContainerSize() })
     });
 
     if (this._parentContainer) this._parentContainer.addChildContainer(this);
@@ -91,7 +91,6 @@ export class TriPanelComponent implements OnInit {
   }
 
   setFB() {
-    console.log(this.name, 'called fb')
     this.panels.forEach(p => {
       this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
     });
@@ -105,7 +104,6 @@ export class TriPanelComponent implements OnInit {
   }
 
   public _setContainerSize() {
-    console.log(this.name, 'called scs')
     if (!this._parentContainer) {
       let rect: ClientRect = this._element.nativeElement.getBoundingClientRect();
       this._containerSize = {
@@ -131,6 +129,17 @@ export class TriPanelComponent implements OnInit {
 
   public requestPanelDimensions(panel: HTMLElement): IContainerSize {
     return Object.assign({}, this._containerSize, {[this._dimension]: this._panelSizes.get(panel) || this._getDefaultPanelSize()});
+  }
+
+  public updateContainerSize() {
+    console.log(this.name, 'called ucs')
+    const newSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
+    const ratio = newSize[this._dimension] / this._containerSize[this._dimension];
+    this._panelSizes.forEach((val, panel) => {
+      this._panelSizes.set(panel, val * ratio);
+    });
+    this._containerSize = newSize;
+    this.setFB();
   }
 
 }
