@@ -19,7 +19,7 @@
     flex-direction: column;
     overflow: hidden;
     border: none;
-    transition: flex-basis 300ms ease-out;
+    // transition: flex-basis 300ms ease-out;
 }
 
 .panel-content > @{deep}:not(.panel-header) {
@@ -63,7 +63,7 @@
     height: 36px;
     padding: 9px;
     border-bottom: 1px solid #d4d4d4;
-    &.collapsable:hover {
+    &:hover {
         .rectangle-lightblue-hover;
         cursor: pointer;
 
@@ -76,7 +76,7 @@
         .no-select;
         display: inline-block;
         transform: rotate(0deg);
-        transition: transform 300ms;
+        // transition: transform 300ms;
     }
     // overflow: hidden;
     // white-space: nowrap;
@@ -86,16 +86,21 @@
 
 .panel-content.collapsed {
     .panel-header {
-        height: 100%;
-        width: 100%;
-        &.vertical > .panel-header-label {
-            display: inline-block;
-            position: relative;
-            left: 10px;
-            // float: left;
-            transform-origin: bottom;
-            transform: rotate(-90deg);
-            transition: transform 300ms;
+        &.horizontal {
+            height: 36px;
+            width: 100%;
+        }
+        &.vertical {
+            height: 100%;
+            width: 36px;
+            > .panel-header-label {
+                display: inline-block;
+                position: relative;
+                left: 5px;
+                transform-origin: bottom;
+                transform: rotate(-90deg);
+                // transition: transform 300ms;
+            }
         }
     }
 }
