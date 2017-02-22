@@ -80,15 +80,22 @@ export class DualPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
-      this._containerChildren.forEach(c => { c.updateContainerSize() })
+      this._containerChildren.forEach(c => { c.proportionalResize() })
     });
 
     if (this._parentContainer) this._parentContainer.addChildContainer(this);
   }
 
-  ngAfterViewInit() {
-    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
+  public init() {
+    this._setContainerSize()
+    this._setDefaultPanelSizes()
     this.setFB();
+  }
+
+  ngAfterViewInit() {
+    this.init();
+    this._containerChildren.forEach(c => { c.init() })
+
   }
 
   setFB() {
@@ -114,10 +121,15 @@ export class DualPanelComponent implements OnInit {
     } else {
       this._containerSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
     }
+    // console.log(this.name, this._containerSize)
   }
 
   private _getDefaultPanelSize(): number {
     return (this._containerSize[this._dimension] - 4) / 2;
+  }
+
+  private _setDefaultPanelSizes() {
+    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
   }
 
   private _requestParentNotifications(parent: DualPanelComponent|TriPanelComponent) {
@@ -132,7 +144,7 @@ export class DualPanelComponent implements OnInit {
     return Object.assign({}, this._containerSize, {[this._dimension]: this._panelSizes.get(panel) || this._getDefaultPanelSize()});
   }
 
-  public updateContainerSize() {
+  public proportionalResize() {
     const newSize: IContainerSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
     const ratio: number = newSize[this._dimension] / this._containerSize[this._dimension];
     this._panelSizes.forEach((val, panel) => {
@@ -144,7 +156,6 @@ export class DualPanelComponent implements OnInit {
 
   collapsePanel(toggledPanel: HTMLElement) {
     if (this.collapsedPanel === toggledPanel) {
-      console.log('was collapsed')
       this._panelSizes.forEach((v, p) => {
         this._panelSizes.set(p, this._getDefaultPanelSize());
       })

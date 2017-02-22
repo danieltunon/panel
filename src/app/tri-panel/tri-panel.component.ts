@@ -80,18 +80,25 @@ export class TriPanelComponent implements OnInit {
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
-      this._containerChildren.forEach(c => { c.updateContainerSize() })
+      this._containerChildren.forEach(c => { c.proportionalResize() })
     });
 
     if (this._parentContainer) this._parentContainer.addChildContainer(this);
   }
 
-  ngAfterViewInit() {
-    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
+  public init() {
+    this._setContainerSize()
+    this._setDefaultPanelSizes()
     this.setFB();
   }
 
+  ngAfterViewInit() {
+    this.init();
+    this._containerChildren.forEach(c => { c.init() })
+  }
+
   setFB() {
+    // console.log(this.name, this._containerSize)
     this.panels.forEach(p => {
       this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
     });
@@ -120,6 +127,10 @@ export class TriPanelComponent implements OnInit {
     return (this._containerSize[this._dimension] - 8) / 3;
   }
 
+  private _setDefaultPanelSizes() {
+    this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
+  }
+
   private _requestParentNotifications(parent: DualPanelComponent|TriPanelComponent) {
     parent.addChildContainer(this);
   }
@@ -132,8 +143,7 @@ export class TriPanelComponent implements OnInit {
     return Object.assign({}, this._containerSize, {[this._dimension]: this._panelSizes.get(panel) || this._getDefaultPanelSize()});
   }
 
-  public updateContainerSize() {
-    console.log(this.name, 'called ucs')
+  public proportionalResize() {
     const newSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
     const ratio = newSize[this._dimension] / this._containerSize[this._dimension];
     this._panelSizes.forEach((val, panel) => {
@@ -145,7 +155,6 @@ export class TriPanelComponent implements OnInit {
 
   collapsePanel(toggledPanel: HTMLElement) {
     if (this.collapsedPanel === toggledPanel) {
-      console.log('was collapsed')
       this._panelSizes.forEach((v, p) => {
         this._panelSizes.set(p, this._getDefaultPanelSize());
       })
