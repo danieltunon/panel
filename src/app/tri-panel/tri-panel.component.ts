@@ -36,24 +36,21 @@ export class TriPanelComponent implements OnInit {
   private _defaultPanelSize: number;
   public collapsedPanel: HTMLElement;
 
-  startResize$: Subject<any> = new Subject();
-  endResize$: Subject<any> = new Subject();
-  resize$: Subject<any> = new Subject();
-  drag$ = this.startResize$.concatMap( start => {
-    return this.resize$
+  startDrag$: Subject<any> = new Subject();
+  endDrag$: Subject<any> = new Subject();
+  dragging$: Subject<any> = new Subject();
+  resize$ = this.startDrag$.concatMap( start => {
+    return this.dragging$
       .scan((acc, curr) => ({
         startPosition: curr[this._axis],
         delta: curr[this._axis] - acc.startPosition
       }), {startPosition: start.e[this._axis], delta: 0})
       .map(resize => ({delta: resize.delta, targets: start.targets}))
-      .takeUntil(this.endResize$);
+      .takeUntil(this.endDrag$);
   });
 
-  @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { e.preventDefault(); this.resize$.next(e) }
-  @HostListener('mouseup', ['$event']) onMouseUp(e: MouseEvent) { this.endResize$.next(e) }
-  // onMouseDown(e: MouseEvent, targets: Array<ElementRef>) {
-  //   this.startResize$.next({e, targets});
-  // }
+  @HostListener('mousemove', ['$event']) onMouseMove(e: MouseEvent) { e.preventDefault(); this.dragging$.next(e) }
+  @HostListener('mouseup', ['$event']) onMouseUp(e: MouseEvent) { this.endDrag$.next(e) }
 
   constructor(
     private _renderer: Renderer,
@@ -76,7 +73,7 @@ export class TriPanelComponent implements OnInit {
         break;
     }
 
-    this.drag$.subscribe(resize => {
+    this.resize$.subscribe(resize => {
       this._panelSizes.set(resize.targets[0], this._panelSizes.get(resize.targets[0]) + resize.delta);
       this._panelSizes.set(resize.targets[1], this._panelSizes.get(resize.targets[1]) - resize.delta);
       this.setFB();
