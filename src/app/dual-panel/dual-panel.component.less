@@ -11,6 +11,7 @@
     position: relative;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 .panel-content {
@@ -24,6 +25,7 @@
 
 .panel-content > @{deep}:not(.panel-header) {
     flex-grow: 1;
+    flex-shrink: 0;
     overflow-y: auto;
 }
 
