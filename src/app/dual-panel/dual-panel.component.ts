@@ -118,7 +118,6 @@ export class DualPanelComponent implements OnInit {
     } else {
       this._containerSize = this._parentContainer.requestPanelDimensions(this._element.nativeElement.parentElement);
     }
-    // console.log(this.name, this._containerSize)
   }
 
   private _getDefaultPanelSize(): number {

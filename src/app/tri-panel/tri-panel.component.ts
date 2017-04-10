@@ -94,8 +94,7 @@ export class TriPanelComponent implements OnInit {
     this._containerChildren.forEach(c => { c.init() })
   }
 
-  setFB() {
-    // console.log(this.name, this._containerSize)
+  private setFB() {
     this.panels.forEach(p => {
       this._renderer.setElementStyle(p.nativeElement, 'flex-basis', `${this._panelSizes.get(p.nativeElement)}px`)
     });
@@ -150,7 +149,7 @@ export class TriPanelComponent implements OnInit {
     this.setFB();
   }
 
-  collapsePanel(toggledPanel: HTMLElement) {
+  public collapsePanel(toggledPanel: HTMLElement) {
     if (this.collapsedPanel === toggledPanel) {
       this._panelSizes.forEach((v, p) => {
         this._panelSizes.set(p, this._getDefaultPanelSize());

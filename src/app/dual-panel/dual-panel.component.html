@@ -3,7 +3,7 @@
     <ng-content *ngIf="collapsedPanel !== panel1" select="[panel=1]"></ng-content>
 </div>
 
-<div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="startResize$.next({e: $event, targets: [panel1, panel2]})"></div>
+<div class="panel-splitter {{orientation}}" #firstSplitter (mousedown)="startDrag$.next({e: $event, targets: [panel1, panel2]})"></div>
 
 <div class="panel-content" [class.collapsed]="collapsedPanel === panel2" #panel2>
     <div class="panel-header {{orientation}}" (click)="collapsePanel(panel2)"><span class="panel-header-label">{{name}}.2</span></div>
