@@ -127,10 +127,6 @@ export class TriPanelComponent implements OnInit {
     this.panels.forEach(p => this._panelSizes.set(p.nativeElement, this._getDefaultPanelSize()));
   }
 
-  private _requestParentNotifications(parent: DualPanelComponent|TriPanelComponent) {
-    parent.addChildContainer(this);
-  }
-
   public addChildContainer(child: DualPanelComponent|TriPanelComponent) {
     this._containerChildren.push(child);
   }
